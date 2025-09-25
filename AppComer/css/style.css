@@ -1,0 +1,74 @@
+/* Fuente y colores inspirados en Instagram */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
+    background-size: 300% 300%;
+    animation: gradientBG 8s ease infinite;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Animación de fondo */
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Caja central */
+.login-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
+}
+
+/* Logo */
+.logo {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: #d62976;
+}
+
+/* Formulario */
+.login-form input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}
+
+.login-form button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 12px;
+    background: #d62976;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.login-form button:hover {
+    background: #962fbf;
+}
+
+/* Texto de registro */
+.register-text {
+    margin-top: 15px;
+    font-size: 0.9rem;
+}
+
+.register-text a {
+    color: #4f5bd5;
+    text-decoration: none;
+    font-weight: bold;
+}
