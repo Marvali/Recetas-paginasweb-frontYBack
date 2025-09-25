@@ -1,21 +1,12 @@
-/* Fuente y colores inspirados en Instagram */
+/* Estilo inspirado en Thermomix: minimalista, verde y limpio */
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
-    background-size: 300% 300%;
-    animation: gradientBG 8s ease infinite;
-    height: 100vh;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #156302;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-/* Animación de fondo */
-@keyframes gradientBG {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+    height: 100vh;
 }
 
 /* Caja central */
@@ -23,52 +14,117 @@ body {
     background: white;
     padding: 2rem;
     border-radius: 12px;
-    width: 300px;
+    width: 320px;
     text-align: center;
-    box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
 }
 
 /* Logo */
 .logo {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     margin-bottom: 1.5rem;
-    color: #d62976;
+    color: #006644; /* Verde Thermomix */
+    font-weight: bold;
 }
 
-/* Formulario */
+/* Inputs */
 .login-form input {
     width: 100%;
-    padding: 10px;
-    margin: 8px 0;
-    border: 1px solid #ddd;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
     border-radius: 6px;
+    font-size: 1rem;
 }
 
+/* Botón */
 .login-form button {
     width: 100%;
-    padding: 10px;
-    margin-top: 12px;
-    background: #d62976;
+    padding: 12px;
+    margin-top: 15px;
+    background: #009a3d; /* Verde más vivo */
     color: white;
     border: none;
     border-radius: 6px;
     font-weight: bold;
+    font-size: 1rem;
     cursor: pointer;
-    transition: 0.3s;
+    transition: background 0.3s;
 }
 
 .login-form button:hover {
-    background: #962fbf;
+    background: #007a30;
 }
 
 /* Texto de registro */
 .register-text {
-    margin-top: 15px;
+    margin-top: 20px;
     font-size: 0.9rem;
+    color: #555;
 }
 
 .register-text a {
-    color: #4f5bd5;
+    color: #009a3d;
     text-decoration: none;
     font-weight: bold;
+}
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+
+/* Reset básico */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f9f9f9;
+}
+
+/* Contenedor principal en dos columnas */
+.container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+/* Columna izquierda: perfil */
+.perfil {
+  width: 40%;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.foto-perfil {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin-bottom: 15px;
+}
+
+/* Columna derecha: lista de amigos */
+.amigos {
+  width: 55%;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.amigos h2 {
+  margin-top: 0;
+}
+
+.amigos ul {
+  list-style: none;
+  padding: 0;
+}
+
+.amigos li {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.amigos li:last-child {
+  border-bottom: none;
 }
