@@ -3,20 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - LaCebolla:</title>
+    <title>Iniciar sesión | LaCebolla</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-    <div class="login-container">
-        <h1 class="logo"> LaCebolla </h1>
-        <form class="login-form">
-            <input type="text" placeholder="Usuario" required>
-            <input type="password" placeholder="Contraseña" required>
-            <button type="submit">Iniciar sesión</button>
-        </form>
-        <p class="register-text">
-            ¿No tienes cuenta? <a href="#">Regístrate</a>
-        </p>
-    </div>
+<body class="login-page">
+    <header class="main-header">
+        <div class="top-bar">
+            <p class="logo">LaCebolla</p>
+            <div class="time-login">
+                <span class="current-time" id="current-time" aria-live="polite">--:--</span>
+                <a class="login-button" href="index.html">Volver a la portada</a>
+            </div>
+        </div>
+        <nav class="main-nav" aria-label="Secciones principales">
+            <a href="index.html">Portada</a>
+            <a href="ultima-hora.html">Última Hora</a>
+            <a href="tendencias.html">Tendencias</a>
+            <a href="secciones.html">Secciones</a>
+            <a href="buscar.html">Buscar</a>
+            <a href="registro.html">Registro</a>
+            <a href="suscripcion.html">Suscripción</a>
+            <a href="M.html">Mercado</a>
+            <a href="timeline.html">Timeline</a>
+            <a href="mensajes.html">Mensajes</a>
+            <a href="perfil.html">Perfil</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="login-container">
+            <h1 class="logo" aria-hidden="true">LaCebolla</h1>
+            <form class="login-form">
+                <input type="text" placeholder="Usuario" aria-label="Usuario" required>
+                <input type="password" placeholder="Contraseña" aria-label="Contraseña" required>
+                <button type="submit">Iniciar sesión</button>
+            </form>
+            <p class="register-text">
+                ¿No tienes cuenta? <a href="registro.html">Regístrate</a>
+            </p>
+        </div>
+    </main>
+
+    <script src="js/main.js"></script>
 </body>
 </html>

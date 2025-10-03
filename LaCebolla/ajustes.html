@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajustes | LaCebolla</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="top-bar">
+            <p class="logo">LaCebolla</p>
+            <div class="time-login">
+                <span class="current-time" id="current-time" aria-live="polite">--:--</span>
+                <a class="login-button" href="login.html">Iniciar sesión</a>
+            </div>
+        </div>
+        <nav class="main-nav" aria-label="Secciones principales">
+            <a href="index.html">Portada</a>
+            <a href="ultima-hora.html">Última Hora</a>
+            <a href="tendencias.html">Tendencias</a>
+            <a href="secciones.html">Secciones</a>
+            <a href="buscar.html">Buscar</a>
+            <a href="registro.html">Registro</a>
+            <a href="suscripcion.html">Suscripción</a>
+            <a href="M.html">Mercado</a>
+            <a href="timeline.html">Timeline</a>
+            <a href="mensajes.html">Mensajes</a>
+            <a href="perfil.html" aria-current="page">Perfil</a>
+        </nav>
+    </header>
+
+    <main class="content-wrapper">
+        <section class="page-heading">
+            <h1>Ajustes de cuenta</h1>
+            <p>Configura tus preferencias de privacidad y notificaciones.</p>
+        </section>
+
+        <form class="settings-form">
+            <fieldset>
+                <legend>Notificaciones</legend>
+                <label><input type="checkbox" checked> Resumen diario de titulares</label>
+                <label><input type="checkbox"> Alertas de última hora</label>
+                <label><input type="checkbox" checked> Recordatorios de newsletter</label>
+            </fieldset>
+
+            <fieldset>
+                <legend>Privacidad</legend>
+                <label><input type="checkbox" checked> Mostrar mi perfil a seguidores</label>
+                <label><input type="checkbox"> Permitir mensajes directos</label>
+            </fieldset>
+
+            <fieldset>
+                <legend>Temas de interés</legend>
+                <label><input type="checkbox" checked> Medio ambiente</label>
+                <label><input type="checkbox"> Economía</label>
+                <label><input type="checkbox" checked> Cultura</label>
+            </fieldset>
+
+            <button type="submit">Guardar cambios</button>
+        </form>
+    </main>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

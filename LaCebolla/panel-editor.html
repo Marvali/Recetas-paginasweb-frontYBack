@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel del Editor | LaCebolla</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="top-bar">
+            <p class="logo">LaCebolla</p>
+            <div class="time-login">
+                <span class="current-time" id="current-time" aria-live="polite">--:--</span>
+                <a class="login-button" href="login.html">Iniciar sesión</a>
+            </div>
+        </div>
+        <nav class="main-nav" aria-label="Secciones principales">
+            <a href="index.html">Portada</a>
+            <a href="ultima-hora.html">Última Hora</a>
+            <a href="tendencias.html">Tendencias</a>
+            <a href="secciones.html">Secciones</a>
+            <a href="buscar.html">Buscar</a>
+            <a href="registro.html">Registro</a>
+            <a href="suscripcion.html">Suscripción</a>
+            <a href="M.html">Mercado</a>
+            <a href="timeline.html">Timeline</a>
+            <a href="mensajes.html">Mensajes</a>
+            <a href="perfil.html" aria-current="page">Perfil</a>
+        </nav>
+    </header>
+
+    <main class="content-wrapper">
+        <section class="page-heading">
+            <h1>Panel del editor</h1>
+            <p>Gestiona historias, asignaciones y la agenda editorial del día.</p>
+        </section>
+
+        <section class="dashboard-grid" aria-label="Herramientas para editores">
+            <article class="dashboard-card" id="propuestas">
+                <h3>Bandeja de propuestas</h3>
+                <p>Revisa ideas enviadas por reporteros y colaboradores freelance.</p>
+                <a href="#propuestas">Ver propuestas</a>
+            </article>
+            <article class="dashboard-card" id="calendario">
+                <h3>Calendario editorial</h3>
+                <p>Organiza publicaciones por sección y coordina cierres.</p>
+                <a href="#calendario">Abrir calendario</a>
+            </article>
+            <article class="dashboard-card" id="audiencia">
+                <h3>Indicadores de audiencia</h3>
+                <p>Analiza el desempeño de las notas publicadas esta semana.</p>
+                <a href="#audiencia">Ver métricas</a>
+            </article>
+            <article class="dashboard-card" id="comentarios">
+                <h3>Gestión de comentarios</h3>
+                <p>Modera y destaca aportes constructivos de la comunidad.</p>
+                <a href="#comentarios">Administrar comentarios</a>
+            </article>
+        </section>
+    </main>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

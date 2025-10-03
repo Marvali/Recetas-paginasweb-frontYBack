@@ -1,33 +1,68 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil LaCebolla: </title>
+    <title>Perfil | LaCebolla</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
-    <!-- Columna izquierda: perfil -->
-    <div class="perfil">
-      <h2>Isaac Marval</h2>
-      <p><strong>Email:</strong> marvals@venezuela.com</p>
-      <p5><strong>Biografia:</strong> Soy un Venezolano apasionado por el periodismo </p5>
-    </div>
+    <header class="main-header">
+        <div class="top-bar">
+            <p class="logo">LaCebolla</p>
+            <div class="time-login">
+                <span class="current-time" id="current-time" aria-live="polite">--:--</span>
+                <a class="login-button" href="login.html">Iniciar sesión</a>
+            </div>
+        </div>
+        <nav class="main-nav" aria-label="Secciones principales">
+            <a href="index.html">Portada</a>
+            <a href="ultima-hora.html">Última Hora</a>
+            <a href="tendencias.html">Tendencias</a>
+            <a href="secciones.html">Secciones</a>
+            <a href="buscar.html">Buscar</a>
+            <a href="registro.html">Registro</a>
+            <a href="suscripcion.html">Suscripción</a>
+            <a href="M.html">Mercado</a>
+            <a href="timeline.html">Timeline</a>
+            <a href="mensajes.html">Mensajes</a>
+            <a href="perfil.html" aria-current="page">Perfil</a>
+        </nav>
+    </header>
 
-    <!-- Columna derecha: amigos -->
-    <div class="amigos">
-      <h2>Lista de amigos</h2>
-      <ul>
-        <li>María del Carmen</li>
-        <li>Carlos Roberto</li>
-        <li>Ana Rosa</li>
-        <li>Pedro Daniel</li>
-        <li>Lucía del Pilar</li>
-      </ul>
-    </div>
+    <main class="content-wrapper">
+        <section class="profile-layout">
+            <article class="perfil">
+                <h2>Isaac Marval</h2>
+                <p><strong>Email:</strong> marvals@venezuela.com</p>
+                <p><strong>Biografía:</strong> Venezolano apasionado por el periodismo y la crónica urbana.</p>
+                <p><strong>Rol:</strong> Editor de secciones especiales</p>
+            </article>
+
+            <aside class="amigos">
+                <h2>Lista de amigos</h2>
+                <ul>
+                    <li>María del Carmen</li>
+                    <li>Carlos Roberto</li>
+                    <li>Ana Rosa</li>
+                    <li>Pedro Daniel</li>
+                    <li>Lucía del Pilar</li>
+                </ul>
+            </aside>
+
+            <nav class="profile-links" aria-label="Panel de usuario">
+                <h2>Tu espacio en LaCebolla</h2>
+                <p>Accede rápidamente a tus herramientas y contenidos guardados.</p>
+                <ul>
+                    <li><a href="noticias-guardadas.html">Noticias guardadas</a></li>
+                    <li><a href="ajustes.html">Ajustes de cuenta</a></li>
+                    <li><a href="panel-editor.html">Panel del editor</a></li>
+                    <li><a href="panel-administrador.html">Panel administrador</a></li>
+                </ul>
+            </nav>
+        </section>
+    </main>
+
+    <script src="js/main.js"></script>
 </body>
-
 </html>
-
