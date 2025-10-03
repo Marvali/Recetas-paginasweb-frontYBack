@@ -1,130 +1,295 @@
-/* Estilo inspirado en Thermomix: minimalista, verde y limpio */
+:root {
+  --green-primary: #0f6d2a;
+  --green-secondary: #0c5521;
+  --green-accent: #1aa44d;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-700: #374151;
+  --text-color: #1f2933;
+  --shadow-soft: 0 12px 30px rgba(15, 109, 42, 0.12);
+  --shadow-card: 0 12px 24px rgba(15, 109, 42, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
-    margin: 0;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #156302;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: var(--gray-100);
+  color: var(--text-color);
 }
 
-/* Caja central */
-.login-container {
-    background: white;
-    padding: 2rem;
-    border-radius: 12px;
-    width: 320px;
-    text-align: center;
-    box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
+a {
+  color: inherit;
 }
 
-/* Logo */
+a:hover,
+a:focus {
+  text-decoration: none;
+}
+
+/* ------------------------------
+   Cabecera general
+--------------------------------*/
+.main-header {
+  background: #ffffff;
+  border-bottom: 1px solid var(--gray-200);
+  box-shadow: var(--shadow-soft);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 0.85rem 2rem;
+}
+
 .logo {
-    font-size: 1.4rem;
-    margin-bottom: 1.5rem;
-    color: #006644; /* Verde Thermomix */
-    font-weight: bold;
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--green-primary);
+  letter-spacing: 0.05em;
 }
 
-/* Inputs */
+.time-login {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.current-time {
+  font-weight: 600;
+  color: var(--gray-700);
+  font-variant-numeric: tabular-nums;
+}
+
+.login-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1.25rem;
+  border-radius: 999px;
+  background: var(--green-primary);
+  color: #ffffff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.login-button:hover,
+.login-button:focus {
+  background: var(--green-secondary);
+  transform: translateY(-1px);
+}
+
+.main-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 0.65rem 2rem 1rem;
+  background: var(--green-primary);
+}
+
+.main-nav a {
+  color: #ffffff;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.main-nav a:hover,
+.main-nav a:focus {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* ------------------------------
+   Estructura general de páginas
+--------------------------------*/
+.content-wrapper {
+  max-width: 1200px;
+  margin: 2rem auto 3rem;
+  padding: 0 1.5rem;
+}
+
+.hero {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 3rem;
+  text-align: center;
+  box-shadow: var(--shadow-card);
+}
+
+.hero h1 {
+  margin: 0 0 1rem;
+  font-size: 2.75rem;
+  color: var(--green-primary);
+}
+
+.hero p {
+  margin: 0 auto 2rem;
+  max-width: 680px;
+  line-height: 1.7;
+  color: var(--gray-700);
+}
+
+.hero .cta-button {
+  display: inline-block;
+  padding: 0.75rem 1.9rem;
+  border-radius: 999px;
+  background: var(--green-accent);
+  color: #ffffff;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.hero .cta-button:hover,
+.hero .cta-button:focus {
+  background: #11863a;
+  transform: translateY(-1px);
+}
+
+/* ------------------------------
+   Página de inicio de sesión
+--------------------------------*/
+.login-page {
+  background: radial-gradient(circle at top left, rgba(26, 164, 77, 0.3), rgba(15, 109, 42, 0.85)), #156302;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-page main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2.5rem 1rem 3rem;
+}
+
+.login-container {
+  background: #ffffff;
+  padding: 2.5rem 2rem;
+  border-radius: 18px;
+  width: min(360px, 90vw);
+  text-align: center;
+  box-shadow: var(--shadow-card);
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
 .login-form input {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 1rem;
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  font-size: 1rem;
 }
 
-/* Botón */
 .login-form button {
-    width: 100%;
-    padding: 12px;
-    margin-top: 15px;
-    background: #009a3d; /* Verde más vivo */
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-weight: bold;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background 0.3s;
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  background: var(--green-primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
 }
 
 .login-form button:hover {
-    background: #007a30;
+  background: var(--green-secondary);
 }
 
-/* Texto de registro */
 .register-text {
-    margin-top: 20px;
-    font-size: 0.9rem;
-    color: #555;
+  margin-top: 20px;
+  font-size: 0.95rem;
+  color: var(--gray-700);
 }
 
 .register-text a {
-    color: #009a3d;
-    text-decoration: none;
-    font-weight: bold;
+  color: var(--green-primary);
+  text-decoration: none;
+  font-weight: 700;
 }
 
-/*--------------------------------------------------------------------------------------------------------------------*/
-
-/* Reset básico */
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f9f9f9;
+/* ------------------------------
+   Página de perfil
+--------------------------------*/
+.profile-layout {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  align-items: start;
 }
 
-/* Contenedor principal en dos columnas */
-.container {
-  display: flex;
-  justify-content: space-between;
-  padding: 20px;
-}
-
-/* Columna izquierda: perfil */
-.perfil {
-  width: 40%;
-  background: white;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  text-align: center;
-}
-
-.foto-perfil {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  margin-bottom: 15px;
-}
-
-/* Columna derecha: lista de amigos */
+.perfil,
 .amigos {
-  width: 55%;
-  background: white;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: var(--shadow-card);
 }
 
+.perfil h2,
 .amigos h2 {
   margin-top: 0;
+  color: var(--green-primary);
 }
 
 .amigos ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 .amigos li {
-  padding: 10px;
-  border-bottom: 1px solid #eee;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--gray-200);
 }
 
 .amigos li:last-child {
   border-bottom: none;
+}
+
+/* ------------------------------
+   Adaptabilidad
+--------------------------------*/
+@media (max-width: 768px) {
+  .top-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .time-login {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .main-nav {
+    padding: 0.75rem 1.25rem 1.1rem;
+  }
+
+  .hero {
+    padding: 2.5rem 1.5rem;
+  }
 }

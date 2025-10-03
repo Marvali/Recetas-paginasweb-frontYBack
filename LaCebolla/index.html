@@ -3,20 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PaginaPrincipal - LaCebolla:</title>
+    <title>Portada | LaCebolla</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-        <h1 class="logo"> LaCebolla </h1>
-        <form class="login-form">
-            
-            <button type="submit">Secciones</button>
-            <button type="submit">Iniciar Sesion</button>
-            <button type="submit">X</button>
-            <button type="submit">S</button>
-            <button type="submit">Y</button>
+    <header class="main-header">
+        <div class="top-bar">
+            <p class="logo" aria-label="LaCebolla, noticias frescas cada día">LaCebolla</p>
+            <div class="time-login">
+                <span class="current-time" id="current-time" aria-live="polite">--:--</span>
+                <a class="login-button" href="login.html">Iniciar sesión</a>
+            </div>
+        </div>
+        <nav class="main-nav" aria-label="Secciones principales">
+            <a href="index.html">Portada</a>
+            <a href="timeline.html">Timeline</a>
+            <a href="mensajes.html">Mensajes</a>
+            <a href="perfil.html">Perfil</a>
+            <a href="M.html">Mercado</a>
+        </nav>
+    </header>
 
-        </form>
+    <main class="content-wrapper">
+        <section class="hero">
+            <h1>Tu diario digital con sabor latino</h1>
+            <p>
+                Bienvenido a <strong>LaCebolla</strong>, el espacio donde encuentras titulares frescos,
+                análisis profundos y las historias que marcan a nuestra comunidad. Explora nuestras
+                secciones para mantenerte informado desde cualquier dispositivo.
+            </p>
+            <a class="cta-button" href="timeline.html">Explorar titulares</a>
+        </section>
+    </main>
 
+    <script src="js/main.js"></script>
 </body>
 </html>
