@@ -3,20 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PaginaPrincipal - LaCebolla:</title>
+    <title>Portada - LaCebolla</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-        <h1 class="logo"> LaCebolla </h1>
-        <form class="login-form">
-            
-            <button type="submit">Secciones</button>
-            <button type="submit">Iniciar Sesion</button>
-            <button type="submit">X</button>
-            <button type="submit">S</button>
-            <button type="submit">Y</button>
-
-        </form>
-
+    <header class="site-header">
+        <div class="site-header__brand">
+            <a class="site-header__logo" href="index.html">LaCebolla</a>
+            <div class="site-header__update">
+                <span class="site-header__update-label">Última actualización:</span>
+                <time class="site-header__update-time" datetime="">--:--</time>
+            </div>
+        </div>
+        <nav class="site-nav" aria-label="Navegación principal">
+            <ul class="site-nav__list">
+                <li class="site-nav__item"><a href="index.html">Portada</a></li>
+                <li class="site-nav__item"><a href="timeline.html">Timeline</a></li>
+                <li class="site-nav__item"><a href="mensajes.html">Mensajes</a></li>
+                <li class="site-nav__item"><a href="perfil.html">Perfil</a></li>
+                <li class="site-nav__item"><a href="login.html">Iniciar sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="page-content">
+        <!-- Contenido principal de la portada -->
+    </main>
 </body>
 </html>
