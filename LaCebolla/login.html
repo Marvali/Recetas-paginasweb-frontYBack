@@ -3,20 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - LaCebolla:</title>
+    <title>Iniciar sesión - LaCebolla</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="login-container">
-        <h1 class="logo"> LaCebolla </h1>
-        <form class="login-form">
-            <input type="text" placeholder="Usuario" required>
-            <input type="password" placeholder="Contraseña" required>
-            <button type="submit">Iniciar sesión</button>
-        </form>
-        <p class="register-text">
-            ¿No tienes cuenta? <a href="#">Regístrate</a>
-        </p>
-    </div>
+    <header class="site-header">
+        <div class="site-header__brand">
+            <a class="site-header__logo" href="index.html">LaCebolla</a>
+            <div class="site-header__update">
+                <span class="site-header__update-label">Última actualización:</span>
+                <time class="site-header__update-time" datetime="">--:--</time>
+            </div>
+        </div>
+        <nav class="site-nav" aria-label="Navegación principal">
+            <ul class="site-nav__list">
+                <li class="site-nav__item"><a href="index.html">Portada</a></li>
+                <li class="site-nav__item"><a href="timeline.html">Timeline</a></li>
+                <li class="site-nav__item"><a href="mensajes.html">Mensajes</a></li>
+                <li class="site-nav__item"><a href="perfil.html">Perfil</a></li>
+                <li class="site-nav__item"><a href="login.html" aria-current="page">Iniciar sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="page-content">
+        <div class="login-container">
+            <h1 class="login-title">Acceso a tu cuenta</h1>
+            <form class="login-form">
+                <input type="text" placeholder="Usuario" required>
+                <input type="password" placeholder="Contraseña" required>
+                <button type="submit">Iniciar sesión</button>
+            </form>
+            <p class="register-text">
+                ¿No tienes cuenta? <a href="#">Regístrate</a>
+            </p>
+        </div>
+    </main>
 </body>
 </html>

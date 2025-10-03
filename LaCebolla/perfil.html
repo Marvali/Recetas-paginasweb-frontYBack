@@ -1,33 +1,46 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil LaCebolla: </title>
+    <title>Perfil - LaCebolla</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
-    <!-- Columna izquierda: perfil -->
-    <div class="perfil">
-      <h2>Isaac Marval</h2>
-      <p><strong>Email:</strong> marvals@venezuela.com</p>
-      <p5><strong>Biografia:</strong> Soy un Venezolano apasionado por el periodismo </p5>
-    </div>
-
-    <!-- Columna derecha: amigos -->
-    <div class="amigos">
-      <h2>Lista de amigos</h2>
-      <ul>
-        <li>María del Carmen</li>
-        <li>Carlos Roberto</li>
-        <li>Ana Rosa</li>
-        <li>Pedro Daniel</li>
-        <li>Lucía del Pilar</li>
-      </ul>
-    </div>
+    <header class="site-header">
+        <div class="site-header__brand">
+            <a class="site-header__logo" href="index.html">LaCebolla</a>
+            <div class="site-header__update">
+                <span class="site-header__update-label">Última actualización:</span>
+                <time class="site-header__update-time" datetime="">--:--</time>
+            </div>
+        </div>
+        <nav class="site-nav" aria-label="Navegación principal">
+            <ul class="site-nav__list">
+                <li class="site-nav__item"><a href="index.html">Portada</a></li>
+                <li class="site-nav__item"><a href="timeline.html">Timeline</a></li>
+                <li class="site-nav__item"><a href="mensajes.html">Mensajes</a></li>
+                <li class="site-nav__item"><a href="perfil.html" aria-current="page">Perfil</a></li>
+                <li class="site-nav__item"><a href="login.html">Iniciar sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="page-content">
+        <section class="perfil">
+            <h2>Isaac Marval</h2>
+            <p><strong>Email:</strong> marvals@venezuela.com</p>
+            <p><strong>Biografía:</strong> Soy un Venezolano apasionado por el periodismo</p>
+        </section>
+        <section class="amigos">
+            <h2>Lista de amigos</h2>
+            <ul>
+                <li>María del Carmen</li>
+                <li>Carlos Roberto</li>
+                <li>Ana Rosa</li>
+                <li>Pedro Daniel</li>
+                <li>Lucía del Pilar</li>
+            </ul>
+        </section>
+    </main>
 </body>
-
 </html>
-
