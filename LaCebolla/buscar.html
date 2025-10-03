@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mensajes | LaCebolla</title>
+    <title>Buscar | LaCebolla</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -20,24 +20,30 @@
             <a href="ultima-hora.html">Última Hora</a>
             <a href="tendencias.html">Tendencias</a>
             <a href="secciones.html">Secciones</a>
-            <a href="buscar.html">Buscar</a>
+            <a href="buscar.html" aria-current="page">Buscar</a>
             <a href="registro.html">Registro</a>
             <a href="suscripcion.html">Suscripción</a>
             <a href="M.html">Mercado</a>
             <a href="timeline.html">Timeline</a>
-            <a href="mensajes.html" aria-current="page">Mensajes</a>
+            <a href="mensajes.html">Mensajes</a>
             <a href="perfil.html">Perfil</a>
         </nav>
     </header>
 
     <main class="content-wrapper">
-        <section class="hero">
-            <h1>Buzón de lectores</h1>
-            <p>
-                Aquí podrás enviar comentarios y compartir tus impresiones con la redacción de LaCebolla.
-                Estamos trabajando para habilitar respuestas en tiempo real y menciones entre lectores.
-            </p>
-            <a class="cta-button" href="perfil.html">Ver tu perfil</a>
+        <section class="page-heading">
+            <h1>Buscar</h1>
+            <p>Encuentra artículos, autores, etiquetas o temas específicos dentro de LaCebolla.</p>
+        </section>
+
+        <form class="search-form" aria-label="Formulario de búsqueda">
+            <label for="search-query">¿Qué te gustaría leer?</label>
+            <input type="search" id="search-query" name="q" placeholder="Ejemplo: energía solar" required>
+            <button type="submit">Buscar ahora</button>
+        </form>
+
+        <section class="results-preview" aria-live="polite">
+            <p>Pronto verás aquí coincidencias recientes. Mientras tanto, explora las <a href="tendencias.html">tendencias</a> del día.</p>
         </section>
     </main>
 

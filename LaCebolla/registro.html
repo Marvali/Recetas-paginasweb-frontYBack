@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro | LaCebolla</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="top-bar">
+            <p class="logo">LaCebolla</p>
+            <div class="time-login">
+                <span class="current-time" id="current-time" aria-live="polite">--:--</span>
+                <a class="login-button" href="login.html">Iniciar sesión</a>
+            </div>
+        </div>
+        <nav class="main-nav" aria-label="Secciones principales">
+            <a href="index.html">Portada</a>
+            <a href="ultima-hora.html">Última Hora</a>
+            <a href="tendencias.html">Tendencias</a>
+            <a href="secciones.html">Secciones</a>
+            <a href="buscar.html">Buscar</a>
+            <a href="registro.html" aria-current="page">Registro</a>
+            <a href="suscripcion.html">Suscripción</a>
+            <a href="M.html">Mercado</a>
+            <a href="timeline.html">Timeline</a>
+            <a href="mensajes.html">Mensajes</a>
+            <a href="perfil.html">Perfil</a>
+        </nav>
+    </header>
+
+    <main class="content-wrapper">
+        <section class="page-heading">
+            <h1>Crea tu cuenta</h1>
+            <p>Forma parte de la comunidad de lectores y recibe boletines personalizados.</p>
+        </section>
+
+        <section class="form-card" aria-label="Formulario de registro">
+            <h2>Datos personales</h2>
+            <form class="form-grid">
+                <label for="name">Nombre completo
+                    <input type="text" id="name" name="name" required>
+                </label>
+                <label for="email">Correo electrónico
+                    <input type="email" id="email" name="email" required>
+                </label>
+                <label for="username">Nombre de usuario
+                    <input type="text" id="username" name="username" required>
+                </label>
+                <label for="password">Contraseña
+                    <input type="password" id="password" name="password" minlength="8" required>
+                </label>
+                <label for="plan">Plan de lectura preferido
+                    <select id="plan" name="plan">
+                        <option value="basico">Básico (gratuito)</option>
+                        <option value="premium">Premium mensual</option>
+                        <option value="anual">Apoyo anual</option>
+                    </select>
+                </label>
+                <button type="submit">Crear cuenta</button>
+            </form>
+        </section>
+    </main>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

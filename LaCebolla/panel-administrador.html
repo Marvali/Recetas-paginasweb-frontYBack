@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administrador | LaCebolla</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="top-bar">
+            <p class="logo">LaCebolla</p>
+            <div class="time-login">
+                <span class="current-time" id="current-time" aria-live="polite">--:--</span>
+                <a class="login-button" href="login.html">Iniciar sesión</a>
+            </div>
+        </div>
+        <nav class="main-nav" aria-label="Secciones principales">
+            <a href="index.html">Portada</a>
+            <a href="ultima-hora.html">Última Hora</a>
+            <a href="tendencias.html">Tendencias</a>
+            <a href="secciones.html">Secciones</a>
+            <a href="buscar.html">Buscar</a>
+            <a href="registro.html">Registro</a>
+            <a href="suscripcion.html">Suscripción</a>
+            <a href="M.html">Mercado</a>
+            <a href="timeline.html">Timeline</a>
+            <a href="mensajes.html">Mensajes</a>
+            <a href="perfil.html" aria-current="page">Perfil</a>
+        </nav>
+    </header>
+
+    <main class="content-wrapper">
+        <section class="page-heading">
+            <h1>Panel administrador</h1>
+            <p>Controla el acceso, la seguridad y los permisos del equipo.</p>
+        </section>
+
+        <section class="dashboard-grid" aria-label="Herramientas administrativas">
+            <article class="dashboard-card" id="usuarios">
+                <h3>Gestión de usuarios</h3>
+                <p>Actualiza roles, resetea contraseñas y aprueba cuentas nuevas.</p>
+                <a href="#usuarios">Administrar usuarios</a>
+            </article>
+            <article class="dashboard-card" id="auditoria">
+                <h3>Auditoría</h3>
+                <p>Revisa registros de actividad y descargas de datos.</p>
+                <a href="#auditoria">Ver auditoría</a>
+            </article>
+            <article class="dashboard-card" id="configuracion">
+                <h3>Configuración del sitio</h3>
+                <p>Ajusta parámetros generales, copias de seguridad y anuncios.</p>
+                <a href="#configuracion">Editar configuración</a>
+            </article>
+            <article class="dashboard-card" id="reportes">
+                <h3>Reportes legales</h3>
+                <p>Gestiona solicitudes oficiales y cumplimiento normativo.</p>
+                <a href="#reportes">Abrir reportes</a>
+            </article>
+        </section>
+    </main>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
