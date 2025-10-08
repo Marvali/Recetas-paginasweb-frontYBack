@@ -775,11 +775,11 @@ a:focus {
 --------------------------------*/
 .site-footer {
   margin-top: 4rem;
-  color: #f3f6fb;
+  color: #f1f8f3;
 }
 
 .footer-primary {
-  background: #0b2e67;
+  background: var(--green-primary);
   padding: 2.5rem 1.5rem;
 }
 
@@ -807,7 +807,7 @@ a:focus {
 .footer-tagline {
   margin: 0;
   font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.78);
 }
 
 .footer-nav {
@@ -816,7 +816,7 @@ a:focus {
   flex-wrap: wrap;
   gap: 0.75rem 1.5rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.92);
 }
 
 .footer-nav a {
@@ -832,7 +832,7 @@ a:focus {
   bottom: -0.25rem;
   width: 100%;
   height: 2px;
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.5);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.25s ease;
@@ -856,7 +856,7 @@ a:focus {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.2);
   color: #ffffff;
   font-size: 1.1rem;
   text-decoration: none;
@@ -865,7 +865,7 @@ a:focus {
 
 .footer-social a:hover,
 .footer-social a:focus {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.4);
   transform: translateY(-2px);
 }
 
@@ -873,7 +873,7 @@ a:focus {
   background: #ffffff;
   color: var(--gray-700);
   padding: 2rem 1.5rem 2.5rem;
-  border-top: 1px solid #dce3ef;
+  border-top: 1px solid rgba(15, 109, 42, 0.1);
 }
 
 .footer-secondary .footer-container {
@@ -888,7 +888,7 @@ a:focus {
 }
 
 .footer-note strong {
-  color: #0b2e67;
+  color: var(--green-secondary);
 }
 
 .footer-legal,
@@ -915,7 +915,7 @@ a:focus {
 
 .footer-partners__title {
   font-weight: 700;
-  color: #0b2e67;
+  color: var(--green-secondary);
   margin-right: 0.5rem;
 }
 
