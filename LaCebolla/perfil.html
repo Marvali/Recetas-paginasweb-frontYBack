@@ -9,7 +9,7 @@
 <body>
     <header class="main-header">
         <div class="top-bar">
-            <p class="logo">LaCebolla</p>
+            <p class="logo" aria-label="LaCebolla, noticias frescas cada día">LaCebolla</p>
             <div class="time-login">
                 <span class="current-time" id="current-time" aria-live="polite">--:--</span>
                 <a class="login-button" href="login.html">Iniciar sesión</a>
@@ -19,14 +19,28 @@
             <a href="index.html">Portada</a>
             <a href="ultima-hora.html">Última Hora</a>
             <a href="tendencias.html">Tendencias</a>
-            <a href="secciones.html">Secciones</a>
-            <a href="buscar.html">Buscar</a>
-            <a href="registro.html">Registro</a>
-            <a href="suscripcion.html">Suscripción</a>
+            <details class="nav-dropdown">
+                <summary>Secciones</summary>
+                <div class="dropdown-menu" role="menu">
+                    <a href="secciones.html">Todas las secciones</a>
+                    <a href="politica.html">Política</a>
+                    <a href="economia.html">Economía</a>
+                    <a href="cultura.html">Cultura</a>
+                    <a href="deportes.html">Deportes</a>
+                    <a href="tecnologia.html">Tecnología</a>
+                </div>
+            </details>
             <a href="M.html">Mercado</a>
             <a href="timeline.html">Timeline</a>
-            <a href="mensajes.html">Mensajes</a>
-            <a href="perfil.html" aria-current="page">Perfil</a>
+            <details class="nav-dropdown nav-dropdown--account" open>
+                <summary>Mi cuenta</summary>
+                <div class="dropdown-menu" role="menu">
+                    <a href="registro.html">Registro</a>
+                    <a href="suscripcion.html">Suscripción</a>
+                    <a href="mensajes.html">Mensajes</a>
+                    <a href="perfil.html" aria-current="page">Perfil</a>
+                </div>
+            </details>
         </nav>
     </header>
 
