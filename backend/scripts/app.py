@@ -9,6 +9,8 @@ import bcrypt
 from supabase import create_client
 from dotenv import load_dotenv
 
+from fastapi.middleware.cors import CORSMiddleware
+
 load_dotenv()
 
 # --- CONFIG: cambia estas vars en .env ---
@@ -19,7 +21,20 @@ SUPABASE_KEY = os.getenv("SUPABASE_KEY")
 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 app = FastAPI(title="FastAPI")
 
+""""
+# --- Permitir peticiones desde el frontend (CORS)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://127.0.0.1:5500", "http://localhost:5500"],  # o ["http://127.0.0.1:5500", "http://localhost:5500"] si quieres restringirlo
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+""""
+
 API_PREFIX = "/api/v1"
+
+
 
 # --- SCHEMAS ---
 class RegisterIn(BaseModel):
@@ -155,3 +170,6 @@ def delete_post(post_id: int, user: dict = Depends(get_current_user)):
 @app.get("/health")
 def health():
     return {"status": "ok"}
+
+
+

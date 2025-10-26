@@ -3,3 +3,4 @@ backend/scripts/.env
 /venv
 /backend/__pycache__
 /backend/scripts/__pycache__
+/backend/venv

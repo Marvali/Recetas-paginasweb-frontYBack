@@ -46,18 +46,36 @@
     </header>
 
     <main>
-        <div class="login-container">
-            <h1 class="logo" aria-hidden="true">LaCebolla</h1>
-            <form class="login-form">
-                <input type="text" placeholder="Usuario" aria-label="Usuario" required>
-                <input type="password" placeholder="Contraseña" aria-label="Contraseña" required>
-                <button type="submit">Iniciar sesión</button>
-            </form>
-            <p class="register-text">
-                ¿No tienes cuenta? <a href="registro.html">Regístrate</a>
-            </p>
-        </div>
-    </main>
+    <div class="login-container">
+      <h1 class="logo" aria-hidden="true">LaCebolla</h1>
+
+      <!-- FORMULARIO CORRECTO -->
+      <form class="login-form" novalidate>
+        <input
+          id="login-email"
+          name="email"
+          type="email"
+          placeholder="Correo electrónico"
+          aria-label="Correo electrónico"
+          autocomplete="email"
+          required>
+        <input
+          id="login-password"
+          name="password"
+          type="password"
+          placeholder="Contraseña"
+          aria-label="Contraseña"
+          autocomplete="current-password"
+          required>
+        <button type="submit">Iniciar sesión</button>
+      </form>
+
+      <p id="login-message" class="login-message" role="alert" hidden></p>
+      <p class="register-text">
+        ¿No tienes cuenta? <a href="registro.html">Regístrate</a>
+      </p>
+    </div>
+  </main>
 
     <footer class="site-footer" aria-labelledby="footer-heading">
         <h2 id="footer-heading" class="visually-hidden">Información corporativa de LaCebolla</h2>
