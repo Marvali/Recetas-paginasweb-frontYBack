@@ -42,6 +42,52 @@ a:focus {
   text-decoration: none;
 }
 
+.button-primary,
+.button-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.75rem 1.75rem;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease, border-color 0.3s ease;
+}
+
+.button-primary {
+  background: var(--green-primary);
+  color: #ffffff;
+  border: none;
+}
+
+.button-primary:hover,
+.button-primary:focus {
+  background: var(--green-secondary);
+  transform: translateY(-1px);
+}
+
+.button-secondary {
+  background: rgba(15, 109, 42, 0.08);
+  color: var(--green-primary);
+  border: 1px solid rgba(15, 109, 42, 0.25);
+}
+
+.button-secondary:hover,
+.button-secondary:focus {
+  background: rgba(15, 109, 42, 0.16);
+  border-color: var(--green-primary);
+  transform: translateY(-1px);
+}
+
+button.button-primary,
+button.button-secondary {
+  font: inherit;
+}
+
 /* ------------------------------
    Cabecera general
 --------------------------------*/
@@ -415,6 +461,106 @@ a:focus {
   padding: 1.5rem 1.75rem;
   box-shadow: var(--shadow-card);
   color: var(--gray-700);
+}
+
+.friend-search-filters {
+  display: grid;
+  gap: 1rem;
+}
+
+.friend-search-filters label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: var(--green-primary);
+}
+
+.friend-search-filters select {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--gray-200);
+  border-radius: 10px;
+  background: #ffffff;
+  font-size: 1rem;
+}
+
+.friend-results {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.friend-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: var(--shadow-card);
+  display: grid;
+  gap: 0.9rem;
+}
+
+.friend-card__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.friend-card__name {
+  margin: 0;
+  color: var(--green-primary);
+  font-size: 1.4rem;
+}
+
+.friend-card__tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  background: rgba(26, 164, 77, 0.15);
+  color: var(--green-accent);
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.friend-card__meta {
+  margin: 0;
+  color: var(--gray-700);
+  font-weight: 600;
+}
+
+.friend-card p {
+  margin: 0;
+  color: var(--gray-700);
+  line-height: 1.6;
+}
+
+.friend-card__footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--gray-200);
+}
+
+.friend-card__mutuals {
+  font-weight: 600;
+  color: var(--gray-700);
+}
+
+.friend-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .friend-search-filters {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
 }
 
 .form-card {
@@ -1032,6 +1178,18 @@ a:focus {
   padding: 2rem;
   border-radius: 16px;
   box-shadow: var(--shadow-card);
+}
+
+.profile-actions {
+  margin-top: 1.5rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.profile-actions p {
+  margin: 0;
+  color: var(--gray-700);
+  line-height: 1.6;
 }
 
 .perfil h2,
