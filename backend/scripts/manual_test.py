@@ -4,7 +4,7 @@ Script manual de integración para probar `app.py` sin pytest.
 
 Requisitos:
 - Tener las variables SUPABASE_URL y SUPABASE_KEY en el entorno o en un archivo .env en la raíz del proyecto.
-- Instalar dependencias (fastapi, bcrypt, python-dotenv, supabase, pydantic, etc.) en el entorno donde se ejecute.
+- Instalar dependencias (fastapi, bcrypt, python-dotenv, supabase, pydantic, 'pydantic[email]' etc.) en el entorno donde se ejecute.
 
 Qué hace:
 - Registra un usuario con email único
@@ -20,9 +20,10 @@ import sys
 import os
 import time
 from dotenv import load_dotenv
+print(" Directorio actual:", os.getcwd())
+print(" Archivos en este directorio:", os.listdir(os.getcwd()))
 
 load_dotenv()
-
 SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY")
 
