@@ -1,0 +1,10 @@
+# Dependencias principales para ejecutar la aplicación, pruebas y script manual
+fastapi
+uvicorn[standard]
+python-dotenv
+bcrypt
+supabase
+pytest
+
+# Nota: si usas un entorno virtual, instala con:
+#   pip install -r requirements.txt
