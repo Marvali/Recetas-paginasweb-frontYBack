@@ -30,7 +30,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-""""
+"""
 
 API_PREFIX = "/api/v1"
 
