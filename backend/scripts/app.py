@@ -21,16 +21,14 @@ SUPABASE_KEY = os.getenv("SUPABASE_KEY")
 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 app = FastAPI(title="FastAPI")
 
-""""
-# --- Permitir peticiones desde el frontend (CORS)
+# --- Permitir peticiones desde cualquier origen (CORS abierto)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://127.0.0.1:5500", "http://localhost:5500"],  # o ["http://127.0.0.1:5500", "http://localhost:5500"] si quieres restringirlo
+    allow_origins=["*"],        # ← permite TODOS los orígenes
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["*"],        # ← permite todos los métodos (GET, POST, PUT, DELETE, etc.)
+    allow_headers=["*"],        # ← permite todas las cabeceras personalizadas
 )
-"""
 
 API_PREFIX = "/api/v1"
 
