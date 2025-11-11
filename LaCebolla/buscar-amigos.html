@@ -9,13 +9,14 @@
 <body>
     <header class="main-header">
         <div class="top-bar">
-            <p class="logo" aria-label="LaCebolla, noticias frescas cada día">LaCebolla</p>
+            <p class="logo">LaCebolla</p>
             <div class="time-login">
                 <span class="current-time" id="current-time" aria-live="polite">--:--</span>
                 <a class="login-button" href="login.html">Iniciar sesión</a>
             </div>
         </div>
-        <nav class="main-nav" aria-label="Secciones principales">
+        <nav class="main-nav">
+            <h2 class="visually-hidden">Secciones principales</h2>
             <a href="index.html">Portada</a>
             <a href="ultima-hora.html">Última Hora</a>
             <a href="tendencias.html">Tendencias</a>
@@ -54,7 +55,8 @@
             </p>
         </section>
 
-        <form class="search-form" aria-label="Buscar personas">
+        <h2 class="visually-hidden">Buscar personas</h2>
+        <form class="search-form">
             <label for="friend-query">Nombre de usuario o nombre completo</label>
             <input type="search" id="friend-query" name="q" placeholder="Ejemplo: @chefverde o Ana Martínez" required>
             <div class="friend-search-filters">
@@ -82,7 +84,8 @@
             <button type="submit" class="button-primary">Buscar personas</button>
         </form>
 
-        <section class="friend-results" aria-live="polite" aria-label="Resultados sugeridos">
+        <section class="friend-results" aria-live="polite">
+            <h2 class="visually-hidden">Resultados sugeridos</h2>
             <article class="friend-card">
                 <div class="friend-card__header">
                     <h2 class="friend-card__name">Laura Especias</h2>
@@ -150,7 +153,8 @@
                     <p class="footer-logo">LaCebolla</p>
                     <p class="footer-tagline">Periodismo con humor y responsabilidad.</p>
                 </div>
-                <nav class="footer-nav" aria-label="Enlaces corporativos">
+                <nav class="footer-nav">
+                    <h3 class="visually-hidden">Enlaces corporativos</h3>
                     <a href="#">Publicidad</a>
                     <a href="#">Equipo</a>
                     <a href="#">Financiación</a>
@@ -158,15 +162,18 @@
                     <a href="#">Medios</a>
                     <a href="#">Accesibilidad</a>
                 </nav>
-                <div class="footer-social" aria-label="Redes sociales de LaCebolla">
-                    <a href="#" aria-label="Facebook">
+                <div class="footer-social">
+                    <a href="#">
                         <span aria-hidden="true">f</span>
+                        <span class="visually-hidden">Facebook</span>
                     </a>
-                    <a href="#" aria-label="X">
+                    <a href="#">
                         <span aria-hidden="true">x</span>
+                        <span class="visually-hidden">X</span>
                     </a>
-                    <a href="#" aria-label="Instagram">
+                    <a href="#">
                         <span aria-hidden="true">ig</span>
+                        <span class="visually-hidden">Instagram</span>
                     </a>
                 </div>
             </div>
@@ -177,7 +184,8 @@
                     © 2024 <strong>Ediciones LaCebolla</strong>. Reservados todos los derechos. Promovemos un periodismo accesible,
                     riguroso y con buen sabor.
                 </p>
-                <nav class="footer-legal" aria-label="Políticas legales">
+                <nav class="footer-legal">
+                    <h3 class="visually-hidden">Políticas legales</h3>
                     <a href="#">Aviso legal</a>
                     <a href="#">Política de cookies</a>
                     <a href="#">Política de privacidad</a>
@@ -185,7 +193,7 @@
                     <a href="#">RSS</a>
                     <a href="#">Boletines</a>
                 </nav>
-                <div class="footer-partners" aria-label="Medios asociados">
+                <div class="footer-partners">
                     <span class="footer-partners__title">Red de aliados:</span>
                     <a href="#">El Puerro</a>
                     <a href="#">Brocoli.es</a>
