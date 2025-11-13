@@ -24,19 +24,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const setStatus = (message, type = 'neutral') => {
     status.textContent = message;
-    status.classList.remove('form-status--error', 'form-status--success');
+    status.hidden = !message;
+    status.classList.remove('form-status-error', 'form-status-success');
 
     if (!message) {
-      status.setAttribute('aria-hidden', 'true');
       return;
     }
 
-    status.removeAttribute('aria-hidden');
-
     if (type === 'error') {
-      status.classList.add('form-status--error');
+      status.classList.add('form-status-error');
     } else if (type === 'success') {
-      status.classList.add('form-status--success');
+      status.classList.add('form-status-success');
     }
   };
 
@@ -104,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (submissions.length === 0) {
       const emptyItem = document.createElement('li');
-      emptyItem.classList.add('card', 'card--muted');
+      emptyItem.classList.add('card');
       emptyItem.textContent = 'Todavía no guardaste borradores.';
       list.appendChild(emptyItem);
       return;
