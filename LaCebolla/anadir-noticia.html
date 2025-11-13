@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portada | LaCebolla</title>
+    <title>Añadir noticia | LaCebolla</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -17,7 +17,7 @@
         </div>
         <nav class="main-nav">
             <h2 class="visually-hidden">Secciones principales</h2>
-            <a href="index.html" aria-current="page">Portada</a>
+            <a href="index.html">Portada</a>
             <a href="ultima-hora.html">Última Hora</a>
             <a href="tendencias.html">Tendencias</a>
             <details class="nav-dropdown">
@@ -33,7 +33,7 @@
             </details>
             <a href="M.html">Mercado</a>
             <a href="timeline.html">Timeline</a>
-            <a href="anadir-noticia.html">Añadir noticia</a>
+            <a href="anadir-noticia.html" aria-current="page">Añadir noticia</a>
             <details class="nav-dropdown nav-dropdown--account">
                 <summary>Mi cuenta</summary>
                 <div class="dropdown-menu" role="menu">
@@ -48,38 +48,69 @@
     </header>
 
     <main class="content-wrapper">
-        <section class="hero">
-            <h1>Tu diario digital con sabor latino</h1>
+        <section class="page-heading">
+            <h1>Añadir noticia</h1>
             <p>
-                Bienvenido a <strong>LaCebolla</strong>, el espacio donde encuentras titulares frescos,
-                análisis profundos y las historias que marcan a nuestra comunidad. Explora nuestras
-                secciones para mantenerte informado desde cualquier dispositivo.
+                Completa el formulario para proponer una nueva noticia. El envío se guardará localmente
+                en tu dispositivo hasta que un editor la revise en el futuro panel de gestión.
             </p>
-            <a class="cta-button" href="ultima-hora.html">Explorar titulares</a>
         </section>
 
-        <section class="section-grid highlight-grid">
-            <h2 class="visually-hidden">Secciones destacadas</h2>
-            <article class="section-card">
-                <h3>Última Hora</h3>
-                <p>Mantente al día con las coberturas más urgentes desde nuestra redacción global.</p>
-                <a href="ultima-hora.html">Ir a Última Hora</a>
-            </article>
-            <article class="section-card">
-                <h3>Tendencias</h3>
-                <p>Descubre qué temas están marcando conversación en la región y el mundo.</p>
-                <a href="tendencias.html">Ver tendencias</a>
-            </article>
-            <article class="section-card">
-                <h3>Secciones</h3>
-                <p>Explora nuestras secciones especializadas en política, economía, cultura y más.</p>
-                <a href="secciones.html">Explorar secciones</a>
-            </article>
-            <article class="section-card">
-                <h3>Suscripción</h3>
-                <p>Apoya el periodismo independiente con planes flexibles para cada lector.</p>
-                <a href="suscripcion.html">Conoce los planes</a>
-            </article>
+        <section class="form-card" aria-labelledby="news-form-heading">
+            <h2 id="news-form-heading">Formulario de propuesta</h2>
+            <form id="news-form" class="form-grid" novalidate>
+                <label for="news-title">
+                    Título de la noticia
+                    <input type="text" id="news-title" name="title" maxlength="120" required placeholder="Escribe un titular atractivo">
+                </label>
+                <label for="news-section">
+                    Sección
+                    <select id="news-section" name="section" required>
+                        <option value="" disabled selected>Selecciona una sección</option>
+                        <option value="ultima-hora">Última Hora</option>
+                        <option value="tendencias">Tendencias</option>
+                        <option value="politica">Política</option>
+                        <option value="economia">Economía</option>
+                        <option value="cultura">Cultura</option>
+                        <option value="deportes">Deportes</option>
+                        <option value="tecnologia">Tecnología</option>
+                        <option value="mercado">Mercado</option>
+                        <option value="opinion">Opinión</option>
+                    </select>
+                </label>
+                <label for="news-body">
+                    Texto de la noticia
+                    <textarea id="news-body" name="body" rows="8" required placeholder="Incluye la información clave y el contexto"></textarea>
+                </label>
+                <div class="form-grid__actions">
+                    <button type="submit" class="button-primary">Guardar propuesta</button>
+                    <button type="button" id="clear-submissions" class="button-secondary">Vaciar borradores</button>
+                </div>
+            </form>
+            <p id="form-status" class="form-status" role="status" aria-live="polite"></p>
+        </section>
+
+        <section class="submission-preview" aria-labelledby="submission-preview-heading">
+            <div class="form-card">
+                <h2 id="submission-preview-heading">Borradores guardados en este dispositivo</h2>
+                <p>
+                    Estas propuestas se almacenan únicamente en tu navegador. Cuando el panel de gestión esté disponible,
+                    podrás enviarlas a la redacción.
+                </p>
+                <ul id="submission-list" class="story-list"></ul>
+                <template id="submission-item-template">
+                    <li class="story-item">
+                        <article>
+                            <header>
+                                <p class="story-tag"></p>
+                                <h3 class="story-title"></h3>
+                            </header>
+                            <p class="story-excerpt"></p>
+                            <p class="story-meta"></p>
+                        </article>
+                    </li>
+                </template>
+            </div>
         </section>
     </main>
 
@@ -141,5 +172,6 @@
     </footer>
 
     <script src="js/main.js"></script>
+    <script src="js/anadir-noticia.js"></script>
 </body>
 </html>
