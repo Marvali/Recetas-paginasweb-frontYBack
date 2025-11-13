@@ -1,7 +1,7 @@
 const API_BASE_URL = 'http://127.0.0.1:8000/api/v1';
 
 const getRegisterElements = () => {
-  const form = document.querySelector('.register-form');
+  const form = document.getElementById('register-form');
   if (!form) return null;
 
   const usernameInput = form.querySelector('input[name="username"]');

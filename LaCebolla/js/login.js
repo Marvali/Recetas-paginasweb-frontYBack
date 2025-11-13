@@ -3,7 +3,7 @@ const API_BASE_URL = 'http://127.0.0.1:8000/api/v1';
 
 // Obtener referencias a los elementos del formulario
 const getLoginElements = () => {
-  const form = document.querySelector('.login-form');
+  const form = document.getElementById('login-form');
   if (!form) return null;
 
   const emailInput = form.querySelector('input[name="email"]');

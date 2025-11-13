@@ -5,7 +5,7 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: #f4f4f4;
+  background: #f3f3f3;
   color: #222;
   line-height: 1.5;
 }
@@ -16,10 +16,6 @@ a {
 }
 
 a:hover {
-  text-decoration: underline;
-}
-
-a:focus {
   text-decoration: underline;
 }
 
@@ -36,9 +32,9 @@ button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 8px 18px;
-  border-radius: 12px;
+  padding: 8px 16px;
   border: 1px solid #0f6d2a;
+  border-radius: 8px;
   background: #fff;
   color: #0f6d2a;
   font-weight: 600;
@@ -52,7 +48,6 @@ button {
 
 .button--secondary {
   background: #e3f1e7;
-  border-color: #82b995;
 }
 
 .site-header {
@@ -106,18 +101,20 @@ button {
   color: #fff;
   font-weight: 600;
   padding: 6px 12px;
-  border-radius: 12px;
+  border-radius: 8px;
   display: inline-flex;
   align-items: center;
+}
+
+.site-nav__dropdown {
+  position: relative;
 }
 
 .site-nav__summary {
   color: #fff;
   font-weight: 600;
   padding: 6px 12px;
-  border-radius: 12px;
-  display: inline-flex;
-  align-items: center;
+  border-radius: 8px;
   cursor: pointer;
 }
 
@@ -127,15 +124,11 @@ button {
   margin-left: 4px;
 }
 
-.site-nav__dropdown {
-  position: relative;
-}
-
 .site-nav__menu {
   position: absolute;
   top: calc(100% + 4px);
   left: 0;
-  display: flex;
+  display: none;
   flex-direction: column;
   gap: 4px;
   min-width: 160px;
@@ -154,30 +147,25 @@ button {
   font-weight: 600;
 }
 
+.site-nav__dropdown[open] .site-nav__menu {
+  display: flex;
+}
+
 main {
   max-width: 960px;
-  margin: 32px auto;
+  margin: 24px auto;
   padding: 0 16px;
   display: grid;
-  gap: 32px;
+  gap: 24px;
 }
 
 .card {
   background: #fff;
   border: 1px solid #ddd;
-  border-radius: 12px;
-  padding: 20px;
+  border-radius: 10px;
+  padding: 16px;
   display: grid;
   gap: 12px;
-}
-
-.card--hero {
-  text-align: center;
-}
-
-.card--muted {
-  background: #fafafa;
-  border-color: #ccc;
 }
 
 .card__header {
@@ -210,30 +198,16 @@ main {
   font-weight: 600;
 }
 
-.card__tag {
-  display: inline-flex;
-  align-items: center;
-  padding: 4px 10px;
-  border-radius: 12px;
-  background: #e3f1e7;
-  color: #0f6d2a;
-  font-weight: 700;
-  font-size: 0.8rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-
 .tag {
-  display: inline-flex;
-  align-items: center;
+  display: inline-block;
   padding: 4px 10px;
   border-radius: 12px;
   background: #e3f1e7;
   color: #0f6d2a;
   font-weight: 700;
   font-size: 0.8rem;
-  letter-spacing: 0.05em;
   text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .grid {
@@ -259,19 +233,13 @@ main {
   border-bottom: none;
 }
 
-.stack a {
-  font-weight: 600;
-  color: #0f6d2a;
-}
-
 .form-layout {
   display: grid;
   gap: 16px;
 }
 
 .form-layout label {
-  display: flex;
-  flex-direction: column;
+  display: grid;
   gap: 6px;
   font-weight: 600;
 }
@@ -311,7 +279,7 @@ main {
   color: #555;
 }
 
-.form-status[aria-hidden="true"] {
+.form-status[hidden] {
   display: none;
 }
 
@@ -323,54 +291,24 @@ main {
   color: #0f6d2a;
 }
 
-fieldset {
-  border: 1px solid #cfcfcf;
-  border-radius: 8px;
-  padding: 16px;
-  display: grid;
-  gap: 8px;
-}
-
-legend {
-  font-weight: 700;
-  color: #0f6d2a;
-  padding: 0 4px;
-}
-
-label > input[type="checkbox"] {
-  accent-color: #0f6d2a;
-}
-
 .site-footer {
-  margin-top: 32px;
-  color: #fff;
-}
-
-.footer-section {
   background: #0c5521;
+  color: #fff;
+  margin-top: 32px;
 }
 
-.site-footer .footer-section:last-of-type {
-  background: #0a4623;
-}
-
-.footer-section h2 {
-  margin: 0 0 12px;
-  font-size: 1.1rem;
+.site-footer p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .footer-container {
   max-width: 960px;
   margin: 0 auto;
-  padding: 32px 16px;
+  padding: 24px 16px;
   display: grid;
   gap: 20px;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-}
-
-.footer-text {
-  margin: 0;
-  color: rgba(255, 255, 255, 0.9);
 }
 
 .footer-links {
@@ -388,16 +326,9 @@ label > input[type="checkbox"] {
   gap: 8px;
 }
 
-.footer-social a {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.2);
-  color: #fff;
-  font-weight: 700;
+.footer-note {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .footer-partners {
@@ -411,19 +342,10 @@ label > input[type="checkbox"] {
   font-weight: 700;
 }
 
-.footer-note {
-  margin: 0;
-  color: rgba(255, 255, 255, 0.85);
-}
-
 @media (max-width: 640px) {
-  .site-header__top {
-    padding-left: 16px;
-    padding-right: 16px;
-  }
-
   .site-header__actions {
     align-items: flex-start;
+    text-align: left;
   }
 
   .footer-container {

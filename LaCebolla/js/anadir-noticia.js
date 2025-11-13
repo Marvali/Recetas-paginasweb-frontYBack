@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (submissions.length === 0) {
       const emptyItem = document.createElement('li');
-      emptyItem.classList.add('card', 'card--muted');
+      emptyItem.classList.add('card');
       emptyItem.textContent = 'Todavía no guardaste borradores.';
       list.appendChild(emptyItem);
       return;
