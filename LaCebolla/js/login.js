@@ -17,12 +17,10 @@ const getLoginElements = () => {
 };
 
 // Mostrar mensajes de estado
-const showLoginMessage = (element, message, type = 'error') => {
+const showLoginMessage = (element, message) => {
   if (!element) return;
   element.textContent = message;
-  element.hidden = false;
-  element.classList.remove('form-status--error', 'form-status--success');
-  element.classList.add(type === 'success' ? 'form-status--success' : 'form-status--error');
+  element.hidden = !message;
 };
 
 // Función principal de login (simulada con X-User-Email)
@@ -43,7 +41,6 @@ const handleLoginSubmit = ({ form, emailInput, passwordInput, submitButton, mess
     submitButton.disabled = true;
     submitButton.textContent = 'Ingresando…';
     showLoginMessage(messageElement, '');
-    messageElement.hidden = true;
 
     try {
       // Verificar si el usuario existe mediante el endpoint /users/me
@@ -63,7 +60,7 @@ const handleLoginSubmit = ({ form, emailInput, passwordInput, submitButton, mess
       localStorage.setItem('userEmail', email);
       localStorage.setItem('userData', JSON.stringify(user));
 
-      showLoginMessage(messageElement, 'Inicio de sesión exitoso. Redirigiendo…', 'success');
+      showLoginMessage(messageElement, 'Inicio de sesión exitoso. Redirigiendo…');
 
       setTimeout(() => {
         window.location.href = 'perfil.html';

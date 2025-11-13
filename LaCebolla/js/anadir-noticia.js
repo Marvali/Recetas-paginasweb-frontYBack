@@ -22,21 +22,13 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
-  const setStatus = (message, type = 'neutral') => {
+  const setStatus = (message) => {
     status.textContent = message;
-    status.classList.remove('form-status--error', 'form-status--success');
 
     if (!message) {
       status.setAttribute('aria-hidden', 'true');
-      return;
-    }
-
-    status.removeAttribute('aria-hidden');
-
-    if (type === 'error') {
-      status.classList.add('form-status--error');
-    } else if (type === 'success') {
-      status.classList.add('form-status--success');
+    } else {
+      status.removeAttribute('aria-hidden');
     }
   };
 
@@ -104,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (submissions.length === 0) {
       const emptyItem = document.createElement('li');
-      emptyItem.classList.add('card', 'card--muted');
+      emptyItem.classList.add('card');
       emptyItem.textContent = 'Todavía no guardaste borradores.';
       list.appendChild(emptyItem);
       return;
@@ -140,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   if (!storageIsAvailable()) {
-    setStatus('El almacenamiento local está desactivado. No es posible guardar borradores en este navegador.', 'error');
+    setStatus('El almacenamiento local está desactivado. No es posible guardar borradores en este navegador.');
     form.querySelector('[type="submit"]')?.setAttribute('disabled', 'true');
     clearButton.setAttribute('disabled', 'true');
     return;
@@ -155,7 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const body = (formData.get('body') || '').toString().trim();
 
     if (!title || !section || !body) {
-      setStatus('Revisa que el título, la sección y el texto estén completos.', 'error');
+      setStatus('Revisa que el título, la sección y el texto estén completos.');
       return;
     }
 
@@ -176,7 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
     persistSubmissions(submissions);
     renderSubmissions();
     form.reset();
-    setStatus('La propuesta se guardó como borrador local.', 'success');
+    setStatus('La propuesta se guardó como borrador local.');
     form.querySelector('input, select, textarea')?.focus();
   });
 
@@ -184,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const submissions = readSubmissions();
 
     if (submissions.length === 0) {
-      setStatus('No hay borradores para eliminar.', 'neutral');
+      setStatus('No hay borradores para eliminar.');
       return;
     }
 
@@ -195,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     localStorage.removeItem(STORAGE_KEY);
     renderSubmissions();
-    setStatus('Los borradores se eliminaron del almacenamiento local.', 'success');
+    setStatus('Los borradores se eliminaron del almacenamiento local.');
   });
 
   renderSubmissions();
