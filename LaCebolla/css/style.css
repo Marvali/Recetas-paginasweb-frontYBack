@@ -117,11 +117,7 @@ button {
   cursor: pointer;
 }
 
-.site-nav__summary::after {
-  content: "\25BC";
-  font-size: 0.7rem;
-  margin-left: 4px;
-}
+
 
 .site-nav__menu {
   position: absolute;
@@ -263,13 +259,7 @@ main {
   color: #555;
 }
 
-.form-status-error {
-  color: #b20000;
-}
 
-.form-status-success {
-  color: #0f6d2a;
-}
 
 .site-footer {
   background: #0c5521;
