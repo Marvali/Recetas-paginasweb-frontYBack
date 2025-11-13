@@ -1,7 +1,7 @@
 const API_BASE_URL = 'http://127.0.0.1:8000/api/v1';
 
 const getRegisterElements = () => {
-  const form = document.querySelector('.register-form');
+  const form = document.getElementById('register-form');
   if (!form) return null;
 
   const usernameInput = form.querySelector('input[name="username"]');
@@ -19,9 +19,14 @@ const getRegisterElements = () => {
 const showRegisterMessage = (element, message, type = 'error') => {
   if (!element) return;
   element.textContent = message;
+  element.classList.remove('form-status-error', 'form-status-success');
+  if (!message) {
+    element.hidden = true;
+    return;
+  }
+
   element.hidden = false;
-  element.classList.remove('form-status--error', 'form-status--success');
-  element.classList.add(type === 'success' ? 'form-status--success' : 'form-status--error');
+  element.classList.add(type === 'success' ? 'form-status-success' : 'form-status-error');
 };
 
 const handleRegisterSubmit = ({ form, usernameInput, emailInput, passwordInput, submitButton, messageElement }) => {
