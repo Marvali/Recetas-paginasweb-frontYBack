@@ -16,12 +16,10 @@ const getRegisterElements = () => {
   return { form, usernameInput, emailInput, passwordInput, submitButton, messageElement };
 };
 
-const showRegisterMessage = (element, message, type = 'error') => {
+const showRegisterMessage = (element, message) => {
   if (!element) return;
   element.textContent = message;
-  element.hidden = false;
-  element.classList.remove('form-status--error', 'form-status--success');
-  element.classList.add(type === 'success' ? 'form-status--success' : 'form-status--error');
+  element.hidden = !message;
 };
 
 const handleRegisterSubmit = ({ form, usernameInput, emailInput, passwordInput, submitButton, messageElement }) => {
@@ -42,7 +40,6 @@ const handleRegisterSubmit = ({ form, usernameInput, emailInput, passwordInput, 
     submitButton.disabled = true;
     submitButton.textContent = 'Registrando...';
     showRegisterMessage(messageElement, '');
-    messageElement.hidden = true;
 
     try {
       const response = await fetch(`${API_BASE_URL}/auth/register`, {
@@ -57,7 +54,7 @@ const handleRegisterSubmit = ({ form, usernameInput, emailInput, passwordInput, 
         throw new Error(data.detail || data.message || 'Error al registrar usuario.');
       }
 
-      showRegisterMessage(messageElement, 'Registro exitoso. Redirigiendo al inicio de sesión...', 'success');
+      showRegisterMessage(messageElement, 'Registro exitoso. Redirigiendo al inicio de sesión...');
 
       setTimeout(() => {
         window.location.href = 'login.html';
