@@ -21,8 +21,8 @@ const showLoginMessage = (element, message, type = 'error') => {
   if (!element) return;
   element.textContent = message;
   element.hidden = false;
-  element.classList.remove('login-message--error', 'login-message--success');
-  element.classList.add(type === 'success' ? 'login-message--success' : 'login-message--error');
+  element.classList.remove('form-status--error', 'form-status--success');
+  element.classList.add(type === 'success' ? 'form-status--success' : 'form-status--error');
 };
 
 // Función principal de login (simulada con X-User-Email)

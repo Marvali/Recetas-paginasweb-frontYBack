@@ -8,7 +8,6 @@ const SECTION_LABELS = {
   cultura: 'Cultura',
   deportes: 'Deportes',
   tecnologia: 'Tecnología',
-  mercado: 'Mercado',
   opinion: 'Opinión'
 };
 
@@ -105,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (submissions.length === 0) {
       const emptyItem = document.createElement('li');
-      emptyItem.classList.add('story-item', 'story-item--empty');
+      emptyItem.classList.add('card', 'card--muted');
       emptyItem.textContent = 'Todavía no guardaste borradores.';
       list.appendChild(emptyItem);
       return;
@@ -115,10 +114,10 @@ document.addEventListener('DOMContentLoaded', () => {
       .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
       .forEach((submission) => {
         const clone = template.content.firstElementChild.cloneNode(true);
-        const tag = clone.querySelector('.story-tag');
-        const title = clone.querySelector('.story-title');
-        const excerpt = clone.querySelector('.story-excerpt');
-        const meta = clone.querySelector('.story-meta');
+        const tag = clone.querySelector('[data-role="submission-tag"]');
+        const title = clone.querySelector('[data-role="submission-title"]');
+        const excerpt = clone.querySelector('[data-role="submission-excerpt"]');
+        const meta = clone.querySelector('[data-role="submission-meta"]');
 
         if (tag) {
           tag.textContent = SECTION_LABELS[submission.section] || 'Sección sin definir';

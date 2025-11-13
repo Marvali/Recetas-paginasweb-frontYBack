@@ -20,8 +20,8 @@ const showRegisterMessage = (element, message, type = 'error') => {
   if (!element) return;
   element.textContent = message;
   element.hidden = false;
-  element.classList.remove('register-message--error', 'register-message--success');
-  element.classList.add(type === 'success' ? 'register-message--success' : 'register-message--error');
+  element.classList.remove('form-status--error', 'form-status--success');
+  element.classList.add(type === 'success' ? 'form-status--success' : 'form-status--error');
 };
 
 const handleRegisterSubmit = ({ form, usernameInput, emailInput, passwordInput, submitButton, messageElement }) => {
