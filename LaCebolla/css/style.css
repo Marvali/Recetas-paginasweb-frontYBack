@@ -405,6 +405,26 @@ button.button-secondary {
   line-height: 1.6;
 }
 
+.story-tag {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(15, 109, 42, 0.12);
+  color: var(--green-primary);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.story-meta {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--gray-700);
+  font-weight: 600;
+}
+
 .story-item a {
   font-weight: 700;
   color: var(--green-primary);
@@ -592,11 +612,18 @@ button.button-secondary {
 }
 
 .form-grid input,
-.form-grid select {
+.form-grid select,
+.form-grid textarea {
   padding: 0.8rem 1rem;
   border: 1px solid var(--gray-200);
   border-radius: 10px;
   font-size: 1rem;
+}
+
+.form-grid textarea {
+  resize: vertical;
+  min-height: 160px;
+  font-family: inherit;
 }
 
 .form-grid button {
@@ -613,6 +640,71 @@ button.button-secondary {
 .form-grid button:hover,
 .form-grid button:focus {
   background: var(--green-secondary);
+}
+
+.form-grid__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.form-grid__actions .button-primary,
+.form-grid__actions .button-secondary {
+  min-width: 180px;
+  justify-content: center;
+}
+
+.form-grid__actions .button-primary {
+  background: var(--green-primary);
+  color: #ffffff;
+  border: none;
+}
+
+.form-grid__actions .button-primary:hover,
+.form-grid__actions .button-primary:focus {
+  background: var(--green-secondary);
+}
+
+.form-grid__actions .button-secondary {
+  background: rgba(15, 109, 42, 0.08);
+  color: var(--green-primary);
+  border: 1px solid rgba(15, 109, 42, 0.25);
+}
+
+.form-grid__actions .button-secondary:hover,
+.form-grid__actions .button-secondary:focus {
+  background: rgba(15, 109, 42, 0.16);
+  border-color: var(--green-primary);
+}
+
+.form-status {
+  min-height: 1.5rem;
+  margin-top: 1.5rem;
+  font-weight: 600;
+}
+
+.form-status--success {
+  color: var(--green-secondary);
+}
+
+.form-status--error {
+  color: #b91c1c;
+}
+
+.submission-preview {
+  margin-top: 3rem;
+}
+
+.submission-preview p {
+  color: var(--gray-700);
+  line-height: 1.6;
+}
+
+.story-item--empty {
+  text-align: center;
+  font-weight: 600;
+  color: var(--gray-700);
 }
 
 .subscription-plans {
