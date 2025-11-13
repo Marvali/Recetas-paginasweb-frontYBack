@@ -3,7 +3,7 @@ const API_BASE_URL = 'http://127.0.0.1:8000/api/v1';
 
 // Obtener referencias a los elementos del formulario
 const getLoginElements = () => {
-  const form = document.querySelector('.login-form');
+  const form = document.getElementById('login-form');
   if (!form) return null;
 
   const emailInput = form.querySelector('input[name="email"]');
@@ -20,9 +20,14 @@ const getLoginElements = () => {
 const showLoginMessage = (element, message, type = 'error') => {
   if (!element) return;
   element.textContent = message;
+  element.classList.remove('form-status-error', 'form-status-success');
+  if (!message) {
+    element.hidden = true;
+    return;
+  }
+
   element.hidden = false;
-  element.classList.remove('form-status--error', 'form-status--success');
-  element.classList.add(type === 'success' ? 'form-status--success' : 'form-status--error');
+  element.classList.add(type === 'success' ? 'form-status-success' : 'form-status-error');
 };
 
 // Función principal de login (simulada con X-User-Email)
