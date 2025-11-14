@@ -8,10 +8,11 @@ El objetivo es desarrollar una aplicación web sencilla tipo **red social para a
 ## Tecnologías utilizadas  
 - **HTML5** – estructura de las páginas  
 - **CSS3** – estilos y diseño  
-- **JavaScript** – comportamiento dinámico  
+- **JavaScript** – comportamiento dinámico
+- PostgreSQL - Base de datos
 - **Visual Studio Code** con extensión *Live Server*  
 - **Canva** – diseño de mapa de navegación  
-- **Apache Tomcat** (para despliegue)  
+- **FastAPI** (para despliegue)  
 - **Java JDK** (requisito para Tomcat)  
 
 ## Funcionalidades principales  
