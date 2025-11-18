@@ -5,6 +5,9 @@ from typing import Optional
 
 from fastapi import FastAPI, HTTPException, Depends, Header, status
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+
 from pydantic import BaseModel, EmailStr
 import bcrypt
 from supabase import create_client
@@ -19,6 +22,17 @@ SUPABASE_KEY = os.getenv("SUPABASE_KEY")
 # --- INIT ---
 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 app = FastAPI(title="FastAPI")
+
+# Ruta a la carpeta frontend
+frontend_path = os.path.join(os.path.dirname(__file__), "../LaCebolla")
+
+# Montar archivos estáticos (CSS, JS, imágenes)
+app.mount("/static", StaticFiles(directory=frontend_path), name="static")
+
+@app.get("/")
+def serve_frontend():
+    return FileResponse(os.path.join(frontend_path, "index.html"))
+
 
 # Permitir peticiones Cross-Origin desde cualquier origen (CORS abierto)
 app.add_middleware(
