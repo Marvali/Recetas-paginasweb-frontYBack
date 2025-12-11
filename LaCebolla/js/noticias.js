@@ -57,7 +57,17 @@ const displayPosts = (posts) => {
     return;
   }
 
-  container.innerHTML = posts.map(post => `
+  // Función para detectar si es de última hora (últimas 24h)
+  const isBreakingNews = (createdAt) => {
+    const postDate = new Date(createdAt);
+    const now = new Date();
+    const hoursDiff = (now - postDate) / (1000 * 60 * 60);
+    return hoursDiff <= 24;
+  };
+
+  container.innerHTML = posts.map(post => {
+    const isBreaking = isBreakingNews(post.created_at);
+    return `
     <article class="card">
       ${post.image_url ? `<img src="${post.image_url}" alt="${escapeHtml(post.title)}">` : ''}
       <h2><a href="articulo.html?id=${post.id}">${escapeHtml(post.title)}</a></h2>
@@ -65,7 +75,7 @@ const displayPosts = (posts) => {
         Por ${post.author ? escapeHtml(post.author.username) : 'Anónimo'} • 
         ${formatDate(post.created_at)} • 
         ${post.reading_time || 5} min de lectura
-        ${post.is_breaking_news ? ' • <span class="tag">ÚLTIMA HORA</span>' : ''}
+        ${isBreaking ? ' • <span class="tag" style="background: #ff4444; color: #fff;">ÚLTIMA HORA</span>' : ''}
       </p>
       <p>${escapeHtml(post.content.substring(0, 200))}...</p>
       <nav aria-label="Etiquetas" class="card__actions">
@@ -73,7 +83,8 @@ const displayPosts = (posts) => {
       </nav>
       <a class="button button--secondary" href="articulo.html?id=${post.id}">Leer más</a>
     </article>
-  `).join('');
+  `;
+  }).join('');
 };
 
 // Cargar un post específico

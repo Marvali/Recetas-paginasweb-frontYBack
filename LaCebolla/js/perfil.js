@@ -116,20 +116,41 @@ const setupProfileForm = () => {
 
 // Cargar posts del usuario
 const loadUserPosts = async () => {
-  const userData = getUserData();
-  if (!userData.id) return;
-
+  // Obtener el ID del usuario desde el perfil cargado, no del localStorage
   try {
-    const response = await fetch(`${API_BASE_URL}/posts?author_id=${userData.id}`, {
+    const response = await fetch(`${API_BASE_URL}/users/me`, {
       headers: getAuthHeaders()
     });
 
-    if (!response.ok) throw new Error('Error al cargar publicaciones');
+    if (!response.ok) throw new Error('Error al cargar perfil');
 
-    const data = await response.json();
-    displayUserPosts(data.posts || []);
+    const user = await response.json();
+    const userId = user.id;
+
+    if (!userId) {
+      console.error('No se pudo obtener el ID del usuario');
+      return;
+    }
+
+    // Cargar solo los posts del usuario autenticado
+    const postsResponse = await fetch(`${API_BASE_URL}/posts?author_id=${userId}`, {
+      headers: getAuthHeaders()
+    });
+
+    if (!postsResponse.ok) throw new Error('Error al cargar publicaciones');
+
+    const data = await postsResponse.json();
+    
+    // Filtrar adicionalmente por si acaso (doble verificación)
+    const userPosts = (data.posts || []).filter(post => post.author_id === userId);
+    
+    displayUserPosts(userPosts);
   } catch (error) {
     console.error('Error:', error);
+    const container = document.getElementById('user-posts-container');
+    if (container) {
+      container.innerHTML = '<p style="color: #c41e3a;">Error al cargar tus publicaciones</p>';
+    }
   }
 };
 
@@ -152,7 +173,16 @@ const displayUserPosts = (posts) => {
     });
   };
 
-  container.innerHTML = posts.map(post => `
+  // Obtener el ID del usuario actual para verificación adicional
+  const currentUser = getUserData();
+  const currentUserId = currentUser.id;
+
+  container.innerHTML = posts
+    .filter(post => {
+      // Filtrar solo posts del usuario actual (triple verificación)
+      return post.author_id === currentUserId || (post.author && post.author.id === currentUserId);
+    })
+    .map(post => `
     <article class="card" style="padding: 20px;">
       <h3 style="margin-top: 0;">${escapeHtml(post.title)}</h3>
       <p class="card__meta">

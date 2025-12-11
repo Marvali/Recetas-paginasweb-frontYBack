@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 from typing import Optional, List
 import base64
 
-from fastapi import FastAPI, HTTPException, Depends, Header, status, UploadFile, File, Query
+from fastapi import FastAPI, HTTPException, Depends, Header, status, UploadFile, File, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse, JSONResponse
@@ -70,8 +70,8 @@ class PostIn(BaseModel):
     category: str
     tags: Optional[List[str]] = []
     image_url: Optional[str] = None
-    is_breaking_news: Optional[bool] = False
     reading_time: Optional[int] = 5
+    # is_breaking_news eliminado - se detecta automáticamente por fecha
 
 class PostUpdate(BaseModel):
     title: Optional[str] = None
@@ -79,7 +79,7 @@ class PostUpdate(BaseModel):
     category: Optional[str] = None
     tags: Optional[List[str]] = None
     image_url: Optional[str] = None
-    is_breaking_news: Optional[bool] = None
+    # is_breaking_news eliminado - se detecta automáticamente por fecha
 
 class CommentIn(BaseModel):
     content: str
@@ -163,15 +163,39 @@ def sb_query(query):
     return _res_data(res) or []
 
 # === AUTH ===
-def get_current_user(x_user_email: Optional[str] = Header(None, alias="X-User-Email")):
+def get_current_user(x_user_email: Optional[str] = Header(default=None, alias="X-User-Email")):
+    """
+    Obtiene el usuario actual desde el header X-User-Email.
+    Si no se proporciona, devuelve None (para endpoints que no requieren auth).
+    """
     if not x_user_email:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Falta header X-User-Email")
-    user = sb_get_one("users", "email", x_user_email)
-    if not user:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Usuario no encontrado")
-    if not user.get("is_active"):
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Usuario inactivo")
-    return user
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, 
+            detail="Falta header X-User-Email"
+        )
+    try:
+        user = sb_get_one("users", "email", x_user_email)
+        if not user:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED, 
+                detail="Usuario no encontrado"
+            )
+        if not user.get("is_active", True):
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED, 
+                detail="Usuario inactivo"
+            )
+        return user
+    except HTTPException:
+        raise
+    except Exception as e:
+        import traceback
+        print(f"Error en get_current_user: {str(e)}")
+        print(traceback.format_exc())
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Error al obtener usuario: {str(e)}"
+        )
 
 # === ENDPOINTS AUTH ===
 @app.post(f"{API_PREFIX}/auth/register", status_code=201)
@@ -263,6 +287,87 @@ def update_profile(data: UpdateProfileIn, user: dict = Depends(get_current_user)
         "profile_image_url": updated_user.get("profile_image_url")
     }
 
+# IMPORTANTE: /users/search DEBE ir ANTES de /users/{user_id}
+# para evitar que FastAPI intente parsear "search" como user_id
+@app.api_route(f"{API_PREFIX}/users/search", methods=["GET"])
+async def search_users(request: Request):
+    """
+    Buscar usuarios por username.
+    Requiere autenticación (header X-User-Email).
+    """
+    print(f"\n=== SEARCH USERS DEBUG ===")
+    print(f"URL: {request.url}")
+    print(f"Method: {request.method}")
+    print(f"Headers: {dict(request.headers)}")
+    print(f"Query params: {dict(request.query_params)}")
+    
+    try:
+        # Obtener el header de autenticación manualmente
+        x_user_email = request.headers.get("X-User-Email") or request.headers.get("x-user-email")
+        print(f"X-User-Email: {x_user_email}")
+        
+        if not x_user_email:
+            print("ERROR: Falta header X-User-Email")
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED, 
+                detail="Falta header X-User-Email"
+            )
+        
+        # Obtener el usuario actual manualmente
+        user = sb_get_one("users", "email", x_user_email)
+        print(f"User found: {user.get('username') if user else None}")
+        
+        if not user:
+            print("ERROR: Usuario no encontrado")
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED, 
+                detail="Usuario no encontrado"
+            )
+        
+        # Obtener el parámetro q de la query string manualmente
+        q = request.query_params.get("q", "")
+        if q:
+            q = str(q).strip()
+        else:
+            q = ""
+        
+        print(f"Search query: '{q}'")
+        
+        # Validar que q no esté vacío
+        if not q or len(q) < 1:
+            print("Empty query, returning empty list")
+            return {"users": []}
+        
+        # Buscar usuarios por username (case-insensitive)
+        # Usar ilike para búsqueda case-insensitive en PostgreSQL
+        print(f"Searching in Supabase for: %{q}%")
+        res = supabase.table("users").select("id, username, email, profile_image_url, bio").ilike("username", f"%{q}%").limit(20).execute()
+        
+        if _res_error(res):
+            error = _res_error(res)
+            print(f"Error en Supabase query: {error}")
+            raise HTTPException(status_code=500, detail="Error al consultar la base de datos")
+        
+        users = _res_data(res) or []
+        print(f"Found {len(users)} users")
+        
+        # Filtrar el usuario actual de los resultados
+        current_user_id = user.get("id") if user else None
+        if current_user_id:
+            users = [u for u in users if u.get("id") != current_user_id]
+        
+        print(f"Returning {len(users)} users after filtering")
+        print("=== END DEBUG ===\n")
+        return {"users": users}
+    except HTTPException:
+        raise
+    except Exception as e:
+        import traceback
+        error_msg = f"Error en search_users: {str(e)}"
+        print(error_msg)
+        print(traceback.format_exc())
+        raise HTTPException(status_code=500, detail=f"Error al buscar usuarios: {str(e)}")
+
 @app.get(f"{API_PREFIX}/users/{{user_id}}")
 def get_user_profile(user_id: int, user: dict = Depends(get_current_user)):
     target_user = sb_get_one("users", "id", user_id)
@@ -276,15 +381,6 @@ def get_user_profile(user_id: int, user: dict = Depends(get_current_user)):
         "profile_image_url": target_user.get("profile_image_url"),
         "created_at": target_user.get("created_at")
     }
-
-@app.get(f"{API_PREFIX}/users/search")
-def search_users(q: str = Query(..., min_length=1), user: dict = Depends(get_current_user)):
-    res = supabase.table("users").select("id, username, email, profile_image_url, bio").ilike("username", f"%{q}%").limit(20).execute()
-    if _res_error(res):
-        raise HTTPException(status_code=500, detail="Error DB")
-    
-    users = _res_data(res) or []
-    return {"users": users}
 
 # === ENDPOINTS FRIENDS ===
 @app.post(f"{API_PREFIX}/friends/request/{{addressee_id}}", status_code=201)
@@ -459,6 +555,7 @@ def get_conversations(user: dict = Depends(get_current_user)):
 def list_posts(
     category: Optional[str] = None,
     breaking: Optional[bool] = None,
+    author_id: Optional[int] = Query(None, description="Filtrar por ID de autor"),
     limit: int = Query(50, le=100),
     offset: int = Query(0, ge=0)
 ):
@@ -470,8 +567,13 @@ def list_posts(
     if category:
         query = query.eq("category", category)
     
+    if author_id:
+        query = query.eq("author_id", author_id)
+    
     if breaking:
-        query = query.eq("is_breaking_news", True)
+        # Últimas 24 horas automáticamente
+        yesterday = (datetime.utcnow() - timedelta(hours=24)).isoformat() + "Z"
+        query = query.gte("created_at", yesterday)
     
     res = query.order("created_at", desc=True).range(offset, offset + limit - 1).execute()
     
@@ -483,13 +585,14 @@ def list_posts(
 
 @app.get(f"{API_PREFIX}/posts/breaking-news")
 def get_breaking_news():
-    """Noticias de última hora (últimas 24h)"""
+    """Noticias de última hora (últimas 24h) - Detectado automáticamente"""
     yesterday = (datetime.utcnow() - timedelta(hours=24)).isoformat() + "Z"
     
+    # Solo noticias de las últimas 24 horas, sin importar is_breaking_news
     res = supabase.table("posts").select("""
         *,
         author:author_id(id, username, profile_image_url)
-    """).or_(f"is_breaking_news.eq.true,created_at.gte.{yesterday}").order("created_at", desc=True).execute()
+    """).gte("created_at", yesterday).order("created_at", desc=True).execute()
     
     if _res_error(res):
         raise HTTPException(status_code=500, detail="Error DB")
@@ -525,9 +628,9 @@ def create_post(payload: PostIn, user: dict = Depends(get_current_user)):
         "author_id": user["id"],
         "tags": payload.tags or [],
         "image_url": payload.image_url,
-        "is_breaking_news": payload.is_breaking_news,
         "reading_time": payload.reading_time,
         "created_at": now
+        # is_breaking_news se detecta automáticamente por fecha (últimas 24h)
     }
     created = sb_insert("posts", obj)
     return {"message": "Noticia creada", "post": created[0] if isinstance(created, list) and created else created}
@@ -569,8 +672,7 @@ def update_post(post_id: int, payload: PostUpdate, user: dict = Depends(get_curr
         update_data["tags"] = payload.tags
     if payload.image_url is not None:
         update_data["image_url"] = payload.image_url
-    if payload.is_breaking_news is not None:
-        update_data["is_breaking_news"] = payload.is_breaking_news
+    # is_breaking_news eliminado - se detecta automáticamente por fecha
     
     if update_data:
         sb_update("posts", update_data, "id", post_id)

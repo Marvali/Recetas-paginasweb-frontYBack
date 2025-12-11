@@ -12,10 +12,17 @@ const checkAuth = () => {
   return true;
 };
 
-const getAuthHeaders = () => ({
-  'Content-Type': 'application/json',
-  'X-User-Email': getUserEmail()
-});
+const getAuthHeaders = () => {
+  const email = getUserEmail();
+  if (!email) {
+    console.error('No hay email en localStorage');
+    return {};
+  }
+  return {
+    'Content-Type': 'application/json',
+    'X-User-Email': email
+  };
+};
 
 // Buscar usuarios
 const setupUserSearch = () => {
@@ -29,23 +36,53 @@ const setupUserSearch = () => {
     event.preventDefault();
     const query = searchInput.value.trim();
 
-    if (query.length < 2) {
-      resultsContainer.innerHTML = '<p>Escribe al menos 2 caracteres</p>';
+    if (query.length < 1) {
+      resultsContainer.innerHTML = '<p>Escribe al menos 1 carácter</p>';
       return;
     }
 
     try {
-      const response = await fetch(`${API_BASE_URL}/users/search?q=${encodeURIComponent(query)}`, {
-        headers: getAuthHeaders()
+      // Mostrar loading
+      resultsContainer.innerHTML = '<p>Cargando...</p>';
+      
+      const authHeaders = getAuthHeaders();
+      const email = getUserEmail();
+      
+      console.log('Email del usuario:', email);
+      console.log('Headers de autenticación:', authHeaders);
+      
+      const url = `${API_BASE_URL}/users/search?q=${encodeURIComponent(query)}`;
+      console.log('URL de búsqueda:', url);
+      
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: authHeaders
       });
 
-      if (!response.ok) throw new Error('Error al buscar usuarios');
+      console.log('Respuesta del servidor:', response.status, response.statusText);
+      console.log('Headers de respuesta:', Object.fromEntries(response.headers.entries()));
+
+      if (!response.ok) {
+        let errorMessage = 'Error al buscar usuarios';
+        let errorData = null;
+        try {
+          errorData = await response.json();
+          console.error('Error del servidor (JSON):', errorData);
+          errorMessage = errorData.detail || errorData.message || errorMessage;
+        } catch (e) {
+          const textError = await response.text();
+          console.error('Error del servidor (texto):', textError);
+          errorMessage = `Error ${response.status}: ${response.statusText}`;
+        }
+        throw new Error(errorMessage);
+      }
 
       const data = await response.json();
+      console.log('Usuarios encontrados:', data);
       displaySearchResults(data.users || []);
     } catch (error) {
-      console.error('Error:', error);
-      resultsContainer.innerHTML = '<p>Error al buscar usuarios</p>';
+      console.error('Error completo:', error);
+      resultsContainer.innerHTML = `<p style="color: #c41e3a; padding: 12px; background: #ffe0e6; border-radius: 8px;">Error: ${error.message || 'Error al buscar usuarios'}</p>`;
     }
   });
 };

@@ -50,6 +50,9 @@
                 <p>
                     Completa el formulario para publicar una nueva noticia. Solo editores y administradores pueden publicar.
                 </p>
+                <p style="margin-top: 12px; color: #0f6d2a; font-weight: 600;">
+                    ⚡ Las noticias aparecerán automáticamente en "Última Hora" durante las primeras 24 horas
+                </p>
             </div>
 
             <form id="news-form" class="form-layout" novalidate>
@@ -73,20 +76,53 @@
                     <textarea id="news-body" name="body" rows="8" required placeholder="Incluye la información clave y el contexto"></textarea>
                 </label>
                 <label for="news-image">
-                    URL de la imagen (opcional)
-                    <input type="url" id="news-image" name="image_url" placeholder="https://ejemplo.com/imagen.jpg">
+                    Imagen de la noticia (opcional)
+                    <div style="display: grid; gap: 12px; margin-top: 8px;">
+                        <div>
+                            <input type="file" id="news-image-file" name="image_file" accept="image/*" style="display: none;">
+                            <button type="button" id="select-image-btn" class="button button--secondary" style="width: 100%;">
+                                📁 Seleccionar imagen desde archivo
+                            </button>
+                        </div>
+                        <div style="text-align: center; color: #666; font-size: 0.9rem;">o</div>
+                        <div>
+                            <label for="news-image-paste" style="display: block; padding: 40px; border: 2px dashed #e0e0e0; border-radius: 8px; text-align: center; cursor: pointer; transition: all 0.2s ease; background: #fafafa;">
+                                <div style="font-size: 2rem; margin-bottom: 8px;">📋</div>
+                                <div style="font-weight: 600; color: #0f6d2a;">Pegar imagen desde portapapeles</div>
+                                <div style="font-size: 0.85rem; color: #999; margin-top: 4px;">Ctrl+V o Cmd+V</div>
+                            </label>
+                            <input type="text" id="news-image-paste" name="image_paste" placeholder="O pega aquí una URL de imagen" style="margin-top: 12px;">
+                        </div>
+                        <div id="image-preview-container" style="display: none; margin-top: 12px;">
+                            <img id="image-preview" src="" alt="Vista previa" style="max-width: 100%; max-height: 300px; border-radius: 8px; border: 2px solid #e0e0e0;">
+                            <button type="button" id="remove-image-btn" class="button" style="margin-top: 8px; width: 100%;">❌ Eliminar imagen</button>
+                        </div>
+                    </div>
                 </label>
                 <label for="news-tags">
-                    Etiquetas (separadas por comas)
-                    <input type="text" id="news-tags" name="tags" placeholder="política, economía, internacional">
+                    Etiquetas (selecciona una o más)
+                    <select id="news-tags" name="tags" multiple size="6" style="min-height: 140px;">
+                        <option value="política">Política</option>
+                        <option value="economía">Economía</option>
+                        <option value="cultura">Cultura</option>
+                        <option value="deportes">Deportes</option>
+                        <option value="tecnología">Tecnología</option>
+                        <option value="internacional">Internacional</option>
+                        <option value="nacional">Nacional</option>
+                        <option value="local">Local</option>
+                        <option value="medio ambiente">Medio Ambiente</option>
+                        <option value="salud">Salud</option>
+                        <option value="educación">Educación</option>
+                        <option value="ciencia">Ciencia</option>
+                        <option value="sociedad">Sociedad</option>
+                        <option value="entretenimiento">Entretenimiento</option>
+                        <option value="actualidad">Actualidad</option>
+                        <option value="opinión">Opinión</option>
+                    </select>
+                    <small style="display: block; margin-top: 8px; color: #666; padding: 8px; background: #f5f5f5; border-radius: 4px;">
+                        💡 <strong>Consejo:</strong> Mantén presionado <kbd>Ctrl</kbd> (o <kbd>Cmd</kbd> en Mac) y haz clic para seleccionar múltiples etiquetas
+                    </small>
                 </label>
-                <div class="form-group">
-                    <label for="news-breaking" class="checkbox-item">
-                        <input type="checkbox" id="news-breaking" name="is_breaking">
-                        <span><strong>Marcar como noticia de última hora</strong></span>
-                    </label>
-                </div>
-                
                 <div style="margin-top: 32px; padding-top: 24px; border-top: 2px solid #e0e0e0;">
                     <button type="submit" class="button button--primary" style="width: 100%; padding: 16px; font-size: 1.1rem;">
                         📰 Publicar Noticia

@@ -315,11 +315,50 @@ main {
   background: #fff;
   cursor: pointer;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-layout select:not([multiple]) {
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%230f6d2a' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 16px center;
   padding-right: 40px;
+}
+
+.form-layout select[multiple] {
+  padding: 8px;
+  min-height: 140px;
+  background-image: none;
+  padding-right: 16px;
+  overflow-y: auto;
+}
+
+.form-layout select[multiple] option {
+  padding: 10px 12px;
+  margin: 2px 0;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.form-layout select[multiple] option:hover {
+  background: #e7f3ea;
+}
+
+.form-layout select[multiple] option:checked {
+  background: #0f6d2a;
+  color: #fff;
+  font-weight: 600;
+}
+
+.form-layout kbd {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: 2px 6px;
+  font-family: monospace;
+  font-size: 0.85em;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
 
 .form-layout select:focus {
@@ -358,6 +397,41 @@ main {
   height: 20px;
   cursor: pointer;
   accent-color: #0f6d2a;
+}
+
+.form-layout input[type="file"] {
+  display: none;
+}
+
+#image-preview-container {
+  position: relative;
+}
+
+#image-preview-container img {
+  display: block;
+  margin: 0 auto;
+}
+
+#select-image-btn:hover,
+label[for="news-image-paste"]:hover {
+  border-color: #0f6d2a;
+  background: #f5f5f5;
+}
+
+label[for="news-image-paste"] {
+  user-select: none;
+  outline: none;
+}
+
+label[for="news-image-paste"]:focus,
+label[for="news-image-paste"]:focus-within {
+  border-color: #0f6d2a;
+  background: #f0f8f3;
+  box-shadow: 0 0 0 3px rgba(15, 109, 42, 0.1);
+}
+
+label[for="news-image-paste"]:focus {
+  border-style: solid;
 }
 
 .form-status {
