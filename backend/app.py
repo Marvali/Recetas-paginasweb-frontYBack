@@ -499,56 +499,130 @@ def send_message(data: MessageIn, user: dict = Depends(get_current_user)):
 
 @app.get(f"{API_PREFIX}/messages/conversation/{{other_user_id}}")
 def get_conversation(other_user_id: int, user: dict = Depends(get_current_user)):
-    res = supabase.table("messages").select("""
-        *,
-        sender:sender_id(id, username, profile_image_url),
-        receiver:receiver_id(id, username, profile_image_url)
-    """).or_(
-        f"and(sender_id.eq.{user['id']},receiver_id.eq.{other_user_id}),and(sender_id.eq.{other_user_id},receiver_id.eq.{user['id']})"
-    ).order("created_at", desc=False).execute()
-    
-    if _res_error(res):
-        raise HTTPException(status_code=500, detail="Error DB")
-    
-    messages = _res_data(res) or []
-    
-    # Marcar como leídos los mensajes recibidos
-    supabase.table("messages").update({"is_read": True}).eq("receiver_id", user["id"]).eq("sender_id", other_user_id).eq("is_read", False).execute()
-    
-    return {"messages": messages}
+    try:
+        # Verificar que el otro usuario existe
+        other_user = sb_get_one("users", "id", other_user_id)
+        if not other_user:
+            raise HTTPException(status_code=404, detail="Usuario no encontrado")
+        
+        # Obtener mensajes donde el usuario actual es sender y other_user es receiver
+        res_sent = supabase.table("messages").select("""
+            *,
+            sender:sender_id(id, username, profile_image_url),
+            receiver:receiver_id(id, username, profile_image_url)
+        """).eq("sender_id", user["id"]).eq("receiver_id", other_user_id).order("created_at", desc=False).execute()
+        
+        # Obtener mensajes donde el usuario actual es receiver y other_user es sender
+        res_received = supabase.table("messages").select("""
+            *,
+            sender:sender_id(id, username, profile_image_url),
+            receiver:receiver_id(id, username, profile_image_url)
+        """).eq("sender_id", other_user_id).eq("receiver_id", user["id"]).order("created_at", desc=False).execute()
+        
+        if _res_error(res_sent) or _res_error(res_received):
+            error_sent = _res_error(res_sent)
+            error_received = _res_error(res_received)
+            print(f"Error en get_conversation - sent: {error_sent}, received: {error_received}")
+            raise HTTPException(status_code=500, detail="Error al consultar mensajes")
+        
+        messages_sent = _res_data(res_sent) or []
+        messages_received = _res_data(res_received) or []
+        
+        # Combinar y ordenar por fecha
+        all_messages = messages_sent + messages_received
+        all_messages.sort(key=lambda x: x.get("created_at", ""))
+        
+        # Marcar como leídos los mensajes recibidos
+        try:
+            supabase.table("messages").update({"is_read": True}).eq("receiver_id", user["id"]).eq("sender_id", other_user_id).eq("is_read", False).execute()
+        except Exception as e:
+            print(f"Error al marcar mensajes como leídos: {e}")
+            # No fallar si no se pueden marcar como leídos
+        
+        # Devolver mensajes e información del otro usuario
+        return {
+            "messages": all_messages,
+            "other_user": {
+                "id": other_user["id"],
+                "username": other_user.get("username"),
+                "profile_image_url": other_user.get("profile_image_url"),
+                "bio": other_user.get("bio")
+            }
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        import traceback
+        print(f"Error en get_conversation: {str(e)}")
+        print(traceback.format_exc())
+        raise HTTPException(status_code=500, detail=f"Error al obtener conversación: {str(e)}")
 
 @app.get(f"{API_PREFIX}/messages/conversations")
 def get_conversations(user: dict = Depends(get_current_user)):
-    # Obtener últimos mensajes de cada conversación
-    res = supabase.table("messages").select("""
-        *,
-        sender:sender_id(id, username, profile_image_url),
-        receiver:receiver_id(id, username, profile_image_url)
-    """).or_(f"sender_id.eq.{user['id']},receiver_id.eq.{user['id']}").order("created_at", desc=True).execute()
-    
-    if _res_error(res):
-        raise HTTPException(status_code=500, detail="Error DB")
-    
-    messages = _res_data(res) or []
-    
-    # Agrupar por usuario
-    conversations = {}
-    for msg in messages:
-        other_user_id = msg["receiver_id"] if msg["sender_id"] == user["id"] else msg["sender_id"]
-        if other_user_id not in conversations:
-            other_user = msg["receiver"] if msg["sender_id"] == user["id"] else msg["sender"]
-            conversations[other_user_id] = {
-                "user": other_user,
-                "last_message": msg,
-                "unread_count": 0
-            }
-    
-    # Contar no leídos
-    for conv_id in conversations:
-        unread = supabase.table("messages").select("id", count="exact").eq("sender_id", conv_id).eq("receiver_id", user["id"]).eq("is_read", False).execute()
-        conversations[conv_id]["unread_count"] = unread.count if hasattr(unread, 'count') else 0
-    
-    return {"conversations": list(conversations.values())}
+    try:
+        # Obtener todos los mensajes donde el usuario es sender o receiver
+        # Usamos dos consultas separadas y las combinamos
+        res_sent = supabase.table("messages").select("""
+            *,
+            sender:sender_id(id, username, profile_image_url),
+            receiver:receiver_id(id, username, profile_image_url)
+        """).eq("sender_id", user["id"]).order("created_at", desc=True).execute()
+        
+        res_received = supabase.table("messages").select("""
+            *,
+            sender:sender_id(id, username, profile_image_url),
+            receiver:receiver_id(id, username, profile_image_url)
+        """).eq("receiver_id", user["id"]).order("created_at", desc=True).execute()
+        
+        if _res_error(res_sent) or _res_error(res_received):
+            raise HTTPException(status_code=500, detail="Error al consultar mensajes")
+        
+        messages_sent = _res_data(res_sent) or []
+        messages_received = _res_data(res_received) or []
+        
+        # Combinar todos los mensajes
+        all_messages = messages_sent + messages_received
+        
+        # Agrupar por usuario (mantener solo el último mensaje de cada conversación)
+        conversations = {}
+        for msg in all_messages:
+            # Determinar el ID del otro usuario
+            if msg["sender_id"] == user["id"]:
+                other_user_id = msg["receiver_id"]
+                other_user = msg["receiver"]
+            else:
+                other_user_id = msg["sender_id"]
+                other_user = msg["sender"]
+            
+            # Si no existe la conversación o este mensaje es más reciente, actualizar
+            if other_user_id not in conversations:
+                conversations[other_user_id] = {
+                    "user": other_user,
+                    "last_message": msg,
+                    "unread_count": 0
+                }
+            else:
+                # Comparar fechas para mantener el más reciente
+                existing_date = conversations[other_user_id]["last_message"]["created_at"]
+                new_date = msg["created_at"]
+                if new_date > existing_date:
+                    conversations[other_user_id]["last_message"] = msg
+        
+        # Contar mensajes no leídos para cada conversación
+        for conv_id in conversations:
+            unread_res = supabase.table("messages").select("id").eq("sender_id", conv_id).eq("receiver_id", user["id"]).eq("is_read", False).execute()
+            if not _res_error(unread_res):
+                unread_messages = _res_data(unread_res) or []
+                conversations[conv_id]["unread_count"] = len(unread_messages)
+        
+        return {"conversations": list(conversations.values())}
+    except HTTPException:
+        raise
+    except Exception as e:
+        import traceback
+        print(f"Error en get_conversations: {str(e)}")
+        print(traceback.format_exc())
+        raise HTTPException(status_code=500, detail=f"Error al obtener conversaciones: {str(e)}")
 
 # === ENDPOINTS POSTS ===
 @app.get(f"{API_PREFIX}/posts")

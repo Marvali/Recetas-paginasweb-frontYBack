@@ -50,15 +50,33 @@
         </section>
 
         <!-- Vista de lista de conversaciones (si no hay parámetro ?user=X) -->
-        <section id="conversations-list">
+        <section id="conversations-list" class="card">
             <h2>Conversaciones</h2>
             <p>Cargando conversaciones...</p>
         </section>
 
+        <!-- Sección para iniciar nueva conversación con amigos -->
+        <section id="start-conversation-section" class="card" style="display: none;">
+            <h2>Iniciar nueva conversación</h2>
+            <p>Selecciona un amigo para comenzar a chatear:</p>
+            <div id="friends-to-message-list"></div>
+        </section>
+
         <!-- Vista de conversación individual (si hay parámetro ?user=X) -->
         <section id="conversation-view" style="display: none;">
+            <!-- Header de la conversación con info del usuario -->
+            <div class="card" id="conversation-header" style="display: none;">
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <div id="other-user-avatar"></div>
+                    <div>
+                        <h2 id="other-user-name" style="margin: 0 0 0.25rem 0;"></h2>
+                        <p id="other-user-bio" style="margin: 0; color: #666; font-size: 0.9rem;"></p>
+                    </div>
+                </div>
+            </div>
+
             <div class="card">
-                <div id="messages-container" style="max-height: 500px; overflow-y: auto;">
+                <div id="messages-container" style="max-height: 500px; overflow-y: auto; min-height: 200px;">
                     <p>Cargando mensajes...</p>
                 </div>
             </div>
@@ -66,7 +84,7 @@
             <div class="card">
                 <form id="send-message-form" class="form-layout">
                     <label for="message-content">Escribe tu mensaje:</label>
-                    <textarea id="message-content" name="content" rows="4" required></textarea>
+                    <textarea id="message-content" name="content" rows="4" required placeholder="Escribe tu mensaje aquí..."></textarea>
                     <button type="submit" class="button button--primary">Enviar mensaje</button>
                 </form>
             </div>
