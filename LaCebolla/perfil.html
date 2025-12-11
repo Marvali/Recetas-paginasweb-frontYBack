@@ -49,28 +49,42 @@
             <p>Revisa tus datos principales y accede a los paneles que impulsan tu experiencia en LaCebolla.</p>
         </section>
 
-        <section class="grid" aria-labelledby="perfil-resumen-heading">
-            <h2 id="perfil-resumen-heading"  class="visually-hidden">Resumen de tu actividad</h2>
-            <article class="card">
-                <h2>Isaac Marval</h2>
-                <p><strong>Email:</strong> marvals@gmsa.com</p>
-                <p><strong>Biografía:</strong> Descripcion basica de la persona</p>
-                <p><strong>Rol:</strong> Editor de secciones especiales</p>
-                <div class="card__actions">
-                    <a class="button button--primary" href="buscar-amigos.html">Buscar nuevos amigos</a>
+        <section class="card" aria-labelledby="perfil-resumen-heading">
+            <div class="profile-header">
+                <img id="profile-image" src="" alt="Foto de perfil" class="profile-image" style="display: none;">
+                <div class="profile-info">
+                    <h2 id="profile-username">Cargando...</h2>
+                    <div class="profile-details">
+                        <div class="profile-detail-item">
+                            <strong>Email:</strong>
+                            <span id="profile-email">-</span>
+                        </div>
+                        <div class="profile-detail-item">
+                            <strong>Biografía:</strong>
+                            <span id="profile-bio">Sin biografía</span>
+                        </div>
+                        <div class="profile-detail-item">
+                            <strong>Rol:</strong>
+                            <span id="profile-role" class="tag">-</span>
+                        </div>
+                    </div>
+                    <div class="profile-actions">
+                        <a class="button button--primary" href="ajustes.html">Editar perfil</a>
+                        <a class="button button--secondary" href="buscar-amigos.html">Buscar amigos</a>
+                        <button id="logout-btn" class="button">Cerrar sesión</button>
+                    </div>
                 </div>
-                <p>Conecta con lectores afines para compartir recetas frescas y experiencias en la cocina.</p>
-            </article>
+            </div>
+        </section>
+
+        <section class="grid profile-grid" aria-labelledby="perfil-actividad-heading">
+            <h2 id="perfil-actividad-heading" class="visually-hidden">Actividad del perfil</h2>
 
             <aside class="card" aria-labelledby="friends-heading">
-                <h2 id="friends-heading">Lista de amigos</h2>
-                <ul class="stack">
-                    <li>María del Carmen</li>
-                    <li>Carlos Roberto</li>
-                    <li>Ana Rosa</li>
-                    <li>Pedro Daniel</li>
-                    <li>Lucía del Pilar</li>
-                </ul>
+                <h2 id="friends-heading">Mis publicaciones</h2>
+                <div id="user-posts-container">
+                    <p>Cargando publicaciones...</p>
+                </div>
             </aside>
 
             <nav class="card" aria-labelledby="profile-tools-heading">
@@ -130,5 +144,6 @@
     </footer>
 
     <script src="js/main.js"></script>
+    <script src="js/perfil.js"></script>
 </body>
 </html>

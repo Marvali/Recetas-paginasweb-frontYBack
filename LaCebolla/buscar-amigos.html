@@ -53,36 +53,35 @@
         </section>
 
         <h2>Buscar personas</h2>
-        <form class="card form-layout">
-            <label for="friend-query">Nombre de usuario o nombre completo</label>
-            <input type="search" id="friend-query" name="q" placeholder="Ejemplo: @chefverde o Ana Martínez" required>
-            <div class="grid">
-                <label for="friend-interest">
-                    Intereses culinarios
-                    <select id="friend-interest" name="interest">
-                        <option value="">Todos los intereses</option>
-                        <option value="vegano">Recetas veganas</option>
-                        <option value="postres">Postres y repostería</option>
-                        <option value="tradicional">Cocina tradicional</option>
-                        <option value="fusion">Cocina de autor y fusión</option>
-                    </select>
-                </label>
-                <label for="friend-location">
-                    Ubicación
-                    <select id="friend-location" name="location">
-                        <option value="">Cualquier lugar</option>
-                        <option value="madrid">Madrid</option>
-                        <option value="barcelona">Barcelona</option>
-                        <option value="valencia">Valencia</option>
-                        <option value="sevilla">Sevilla</option>
-                    </select>
-                </label>
-            </div>
+        <form id="search-users-form" class="card form-layout">
+            <label for="search-query">Nombre de usuario</label>
+            <input type="search" id="search-query" name="q" placeholder="Buscar por username" required>
             <button type="submit" class="button button--primary">Buscar personas</button>
         </form>
 
         <section class="stack" aria-live="polite">
-            <h2>Resultados sugeridos</h2>
+            <h2>Resultados de búsqueda</h2>
+            <div id="search-results">
+                <p>Usa el buscador para encontrar usuarios</p>
+            </div>
+        </section>
+
+        <section class="stack">
+            <h2>Solicitudes de amistad pendientes</h2>
+            <div id="friend-requests-container">
+                <p>Cargando...</p>
+            </div>
+        </section>
+
+        <section class="stack">
+            <h2>Mis amigos</h2>
+            <div id="friends-list-container">
+                <p>Cargando...</p>
+            </div>
+        </section>
+
+        <section class="stack" style="display: none;">
+            <h2>Resultados sugeridos (ejemplo)</h2>
             <article class="card">
                 <div class="card__header">
                     <h2>Laura Especias</h2>
@@ -186,5 +185,6 @@
     </footer>
 
     <script src="js/main.js"></script>
+    <script src="js/amigos.js"></script>
 </body>
 </html>

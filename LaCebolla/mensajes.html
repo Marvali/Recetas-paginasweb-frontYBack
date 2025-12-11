@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mensajes | LaCebolla</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -44,60 +43,34 @@
         </nav>
     </header>
 
-    <main class="container my-5">
-        <div class="row g-4">
-            <section class="col-lg-4">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body">
-                        <h2 class="card-title h4">Conversaciones recientes</h2>
-                        <p class="card-text">Selecciona un hilo para ver los mensajes intercambiados con la redacción.</p>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
-                                <h3 class="h6 mb-1">Reportaje de economía</h3>
-                                <p class="small text-muted mb-0">Último mensaje hace 2 horas</p>
-                            </li>
-                            <li class="list-group-item">
-                                <h3 class="h6 mb-1">Ideas para nuevas secciones</h3>
-                                <p class="small text-muted mb-0">Último mensaje ayer</p>
-                            </li>
-                            <li class="list-group-item">
-                                <h3 class="h6 mb-1">Correcciones de estilo</h3>
-                                <p class="small text-muted mb-0">Último mensaje hace 3 días</p>
-                            </li>
-                        </ul>
-                    </div>
+    <main>
+        <section class="card">
+            <h1>Mensajes</h1>
+            <p>Comunícate con tus amigos de forma privada</p>
+        </section>
+
+        <!-- Vista de lista de conversaciones (si no hay parámetro ?user=X) -->
+        <section id="conversations-list">
+            <h2>Conversaciones</h2>
+            <p>Cargando conversaciones...</p>
+        </section>
+
+        <!-- Vista de conversación individual (si hay parámetro ?user=X) -->
+        <section id="conversation-view" style="display: none;">
+            <div class="card">
+                <div id="messages-container" style="max-height: 500px; overflow-y: auto;">
+                    <p>Cargando mensajes...</p>
                 </div>
-            </section>
-            <section class="col-lg-8">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body d-flex flex-column">
-                        <div class="mb-4">
-                            <h1 class="h3">Buzón de lectores</h1>
-                            <p class="mb-0">
-                                Aquí podrás enviar comentarios y compartir tus impresiones con la redacción de LaCebolla.
-                                Estamos trabajando para habilitar respuestas en tiempo real y menciones entre lectores.
-                            </p>
-                        </div>
-                        <div class="bg-light border rounded p-3 mb-4 flex-grow-1">
-                            <p class="text-muted mb-1">10:15 · Redacción</p>
-                            <p class="mb-3">¡Gracias por escribirnos! Cuéntanos qué temas te gustaría ver en portada.</p>
-                            <p class="text-muted mb-1">10:22 · Tú</p>
-                            <p class="mb-0">Me encantaría leer más historias sobre iniciativas locales y ciencia ciudadana.</p>
-                        </div>
-                        <form class="mt-auto">
-                            <div class="mb-3">
-                                <label class="form-label" for="mensaje">Nuevo mensaje</label>
-                                <textarea class="form-control" id="mensaje" rows="4" placeholder="Escribe tu mensaje para la redacción..."></textarea>
-                            </div>
-                            <div class="d-flex justify-content-end gap-2">
-                                <a class="button button--secondary btn btn-outline-secondary" href="perfil.html">Ver tu perfil</a>
-                                <button class="btn btn-primary" type="button">Enviar</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </section>
-        </div>
+            </div>
+
+            <div class="card">
+                <form id="send-message-form" class="form-layout">
+                    <label for="message-content">Escribe tu mensaje:</label>
+                    <textarea id="message-content" name="content" rows="4" required></textarea>
+                    <button type="submit" class="button button--primary">Enviar mensaje</button>
+                </form>
+            </div>
+        </section>
     </main>
 
         <footer class="site-footer">
@@ -143,7 +116,7 @@
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="js/main.js"></script>
+    <script src="js/mensajes.js"></script>
 </body>
 </html>

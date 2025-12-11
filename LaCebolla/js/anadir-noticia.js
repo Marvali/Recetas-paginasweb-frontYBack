@@ -1,24 +1,38 @@
-const STORAGE_KEY = 'lcebolla-news-submissions';
+// anadir-noticia.js - Publicar noticias en el backend
+const API_BASE_URL = 'http://127.0.0.1:8000/api/v1';
+
+const getUserEmail = () => localStorage.getItem('userEmail');
+const getUserData = () => JSON.parse(localStorage.getItem('userData') || '{}');
+
+const checkAuth = () => {
+  const email = getUserEmail();
+  if (!email) {
+    window.location.href = 'login.html';
+    return false;
+  }
+  return true;
+};
+
+const getAuthHeaders = () => ({
+  'Content-Type': 'application/json',
+  'X-User-Email': getUserEmail()
+});
 
 const SECTION_LABELS = {
-  'ultima-hora': 'Última Hora',
-  tendencias: 'Tendencias',
-  politica: 'Política',
-  economia: 'Economía',
-  cultura: 'Cultura',
-  deportes: 'Deportes',
-  tecnologia: 'Tecnología',
-  opinion: 'Opinión'
+  'politica': 'Política',
+  'economia': 'Economía',
+  'cultura': 'Cultura',
+  'deportes': 'Deportes',
+  'tecnologia': 'Tecnología',
 };
 
 document.addEventListener('DOMContentLoaded', () => {
+  if (!checkAuth()) return;
+
   const form = document.getElementById('news-form');
   const status = document.getElementById('form-status');
-  const list = document.getElementById('submission-list');
-  const template = document.getElementById('submission-item-template');
-  const clearButton = document.getElementById('clear-submissions');
 
-  if (!form || !status || !list || !template || !clearButton) {
+  if (!form || !status) {
     return;
   }
 
@@ -27,9 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
     status.hidden = !message;
     status.classList.remove('form-status-error', 'form-status-success');
 
-    if (!message) {
-      return;
-    }
+    if (!message) return;
 
     if (type === 'error') {
       status.classList.add('form-status-error');
@@ -38,164 +50,64 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  const storageIsAvailable = () => {
-    try {
-      const testKey = `${STORAGE_KEY}-test`;
-      localStorage.setItem(testKey, '1');
-      localStorage.removeItem(testKey);
-      return true;
-    } catch (error) {
-      console.warn('LocalStorage no está disponible:', error);
-      return false;
-    }
-  };
-
-  const readSubmissions = () => {
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (!stored) {
-        return [];
-      }
-
-      const parsed = JSON.parse(stored);
-      if (!Array.isArray(parsed)) {
-        return [];
-      }
-
-      return parsed;
-    } catch (error) {
-      console.error('No se pudieron recuperar los borradores:', error);
-      return [];
-    }
-  };
-
-  const persistSubmissions = (submissions) => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(submissions));
-  };
-
-  const formatDate = (isoString) => {
-    const date = new Date(isoString);
-    if (Number.isNaN(date.getTime())) {
-      return 'Fecha desconocida';
-    }
-
-    return date.toLocaleString('es-ES', {
-      dateStyle: 'long',
-      timeStyle: 'short'
-    });
-  };
-
-  const createExcerpt = (text) => {
-    const trimmed = text.trim().replace(/\s+/g, ' ');
-    const limit = 220;
-
-    if (trimmed.length <= limit) {
-      return trimmed;
-    }
-
-    return `${trimmed.slice(0, limit)}…`;
-  };
-
-  const renderSubmissions = () => {
-    const submissions = readSubmissions();
-    list.innerHTML = '';
-
-    if (submissions.length === 0) {
-      const emptyItem = document.createElement('li');
-      emptyItem.classList.add('card');
-      emptyItem.textContent = 'Todavía no guardaste borradores.';
-      list.appendChild(emptyItem);
-      return;
-    }
-
-    submissions
-      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-      .forEach((submission) => {
-        const clone = template.content.firstElementChild.cloneNode(true);
-        const tag = clone.querySelector('[data-role="submission-tag"]');
-        const title = clone.querySelector('[data-role="submission-title"]');
-        const excerpt = clone.querySelector('[data-role="submission-excerpt"]');
-        const meta = clone.querySelector('[data-role="submission-meta"]');
-
-        if (tag) {
-          tag.textContent = SECTION_LABELS[submission.section] || 'Sección sin definir';
-        }
-
-        if (title) {
-          title.textContent = submission.title;
-        }
-
-        if (excerpt) {
-          excerpt.textContent = createExcerpt(submission.body);
-        }
-
-        if (meta) {
-          meta.textContent = `Guardado el ${formatDate(submission.createdAt)}`;
-        }
-
-        list.appendChild(clone);
-      });
-  };
-
-  if (!storageIsAvailable()) {
-    setStatus('El almacenamiento local está desactivado. No es posible guardar borradores en este navegador.', 'error');
-    form.querySelector('[type="submit"]')?.setAttribute('disabled', 'true');
-    clearButton.setAttribute('disabled', 'true');
-    return;
-  }
-
-  form.addEventListener('submit', (event) => {
+  form.addEventListener('submit', async (event) => {
     event.preventDefault();
 
     const formData = new FormData(form);
     const title = (formData.get('title') || '').toString().trim();
     const section = (formData.get('section') || '').toString();
     const body = (formData.get('body') || '').toString().trim();
+    const imageUrl = (formData.get('image_url') || '').toString().trim();
+    const tags = (formData.get('tags') || '').toString().trim().split(',').map(t => t.trim()).filter(t => t);
+    const isBreaking = formData.get('is_breaking') === 'on';
 
     if (!title || !section || !body) {
       setStatus('Revisa que el título, la sección y el texto estén completos.', 'error');
       return;
     }
 
-    const submissions = readSubmissions();
-
-    const identifier = typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
-      ? crypto.randomUUID()
-      : Date.now().toString();
-
-    submissions.push({
-      id: identifier,
-      title,
-      section,
-      body,
-      createdAt: new Date().toISOString()
-    });
-
-    persistSubmissions(submissions);
-    renderSubmissions();
-    form.reset();
-    setStatus('La propuesta se guardó como borrador local.', 'success');
-    form.querySelector('input, select, textarea')?.focus();
-  });
-
-  clearButton.addEventListener('click', () => {
-    const submissions = readSubmissions();
-
-    if (submissions.length === 0) {
-      setStatus('No hay borradores para eliminar.', 'neutral');
+    const userData = getUserData();
+    if (userData.role !== 'editor' && userData.role !== 'admin') {
+      setStatus('Solo editores y administradores pueden publicar noticias.', 'error');
       return;
     }
 
-    const confirmed = window.confirm('¿Seguro que quieres borrar todos los borradores guardados?');
-    if (!confirmed) {
-      return;
-    }
+    try {
+      const response = await fetch(`${API_BASE_URL}/posts`, {
+        method: 'POST',
+        headers: getAuthHeaders(),
+        body: JSON.stringify({
+          title: title,
+          content: body,
+          category: section,
+          image_url: imageUrl || null,
+          tags: tags,
+          is_breaking_news: isBreaking,
+          reading_time: Math.ceil(body.split(' ').length / 200) // Estimación
+        })
+      });
 
-    localStorage.removeItem(STORAGE_KEY);
-    renderSubmissions();
-    setStatus('Los borradores se eliminaron del almacenamiento local.', 'success');
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.detail || 'Error al publicar la noticia');
+      }
+
+      const result = await response.json();
+      setStatus('¡Noticia publicada con éxito!', 'success');
+      form.reset();
+
+      // Redirigir al artículo después de 2 segundos
+      setTimeout(() => {
+        const postId = result.post.id || result.post[0]?.id;
+        if (postId) {
+          window.location.href = `articulo.html?id=${postId}`;
+        }
+      }, 2000);
+    } catch (error) {
+      console.error('Error:', error);
+      setStatus(error.message || 'Error al publicar la noticia', 'error');
+    }
   });
 
-  renderSubmissions();
   setStatus('');
 });

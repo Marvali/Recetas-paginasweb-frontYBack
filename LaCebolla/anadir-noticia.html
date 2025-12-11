@@ -44,16 +44,14 @@
     </header>
 
     <main>
-        <section class="card">
-            <h1>Añadir noticia</h1>
-            <p>
-                Completa el formulario para proponer una nueva noticia. El envío se guardará localmente
-                en tu dispositivo hasta que un editor la revise en el futuro panel de gestión.
-            </p>
-        </section>
+        <section class="card news-form-card">
+            <div class="news-form-header">
+                <h1>Publicar Nueva Noticia</h1>
+                <p>
+                    Completa el formulario para publicar una nueva noticia. Solo editores y administradores pueden publicar.
+                </p>
+            </div>
 
-        <section class="card" aria-labelledby="news-form-heading">
-            <h2 id="news-form-heading">Formulario de propuesta</h2>
             <form id="news-form" class="form-layout" novalidate>
                 <label for="news-title">
                     Título de la noticia
@@ -63,34 +61,43 @@
                     Sección
                     <select id="news-section" name="section" required>
                         <option value="" disabled selected>Selecciona una sección</option>
-                        <option value="ultima-hora">Última Hora</option>
-                        <option value="tendencias">Tendencias</option>
                         <option value="politica">Política</option>
                         <option value="economia">Economía</option>
                         <option value="cultura">Cultura</option>
                         <option value="deportes">Deportes</option>
                         <option value="tecnologia">Tecnología</option>
-                        <option value="opinion">Opinión</option>
                     </select>
                 </label>
                 <label for="news-body">
                     Texto de la noticia
                     <textarea id="news-body" name="body" rows="8" required placeholder="Incluye la información clave y el contexto"></textarea>
                 </label>
-                <div class="card__actions">
-                    <button type="submit" class="button button--primary">Guardar propuesta</button>
-                    <button type="button" id="clear-submissions" class="button button--secondary">Vaciar borradores</button>
+                <label for="news-image">
+                    URL de la imagen (opcional)
+                    <input type="url" id="news-image" name="image_url" placeholder="https://ejemplo.com/imagen.jpg">
+                </label>
+                <label for="news-tags">
+                    Etiquetas (separadas por comas)
+                    <input type="text" id="news-tags" name="tags" placeholder="política, economía, internacional">
+                </label>
+                <div class="form-group">
+                    <label for="news-breaking" class="checkbox-item">
+                        <input type="checkbox" id="news-breaking" name="is_breaking">
+                        <span><strong>Marcar como noticia de última hora</strong></span>
+                    </label>
+                </div>
+                
+                <div style="margin-top: 32px; padding-top: 24px; border-top: 2px solid #e0e0e0;">
+                    <button type="submit" class="button button--primary" style="width: 100%; padding: 16px; font-size: 1.1rem;">
+                        📰 Publicar Noticia
+                    </button>
                 </div>
             </form>
-            <p id="form-status" class="form-status" role="status" aria-live="polite"></p>
+            <p id="form-status" class="form-status" role="status" aria-live="polite" style="margin-top: 20px;"></p>
         </section>
 
-        <section class="card" aria-labelledby="submission-preview-heading">
-            <h2 id="submission-preview-heading">Borradores guardados en este dispositivo</h2>
-            <p>
-                Estas propuestas se almacenan únicamente en tu navegador. Cuando el panel de gestión esté disponible,
-                podrás enviarlas a la redacción.
-            </p>
+        <section class="card" aria-labelledby="submission-preview-heading" style="display: none;">
+            <h2 id="submission-preview-heading">Borradores guardados</h2>
             <ul id="submission-list" class="stack"></ul>
             <template id="submission-item-template">
                 <li class="card">

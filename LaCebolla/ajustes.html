@@ -45,33 +45,77 @@
 
     <main>
         <section class="card">
-            <h1>Ajustes de cuenta</h1>
-            <p>Configura tus preferencias de privacidad y notificaciones.</p>
+            <div class="news-form-header">
+                <h1>Editar Perfil</h1>
+                <p>Actualiza tu información personal y preferencias.</p>
+            </div>
         </section>
 
-        <form class="card form-layout">
-            <fieldset>
-                <legend>Notificaciones</legend>
-                <label><input type="checkbox" checked> Resumen diario de titulares</label>
-                <label><input type="checkbox"> Alertas de última hora</label>
-                <label><input type="checkbox" checked> Recordatorios de newsletter</label>
-            </fieldset>
+        <section class="card form-section">
+            <h2>Información Personal</h2>
+            <form id="edit-profile-form" class="form-layout">
+                <div class="form-group">
+                    <label for="edit-username">Nombre de usuario</label>
+                    <input type="text" id="edit-username" name="username" placeholder="Tu nombre de usuario">
+                </div>
+                
+                <div class="form-group">
+                    <label for="edit-bio">Biografía</label>
+                    <textarea id="edit-bio" name="bio" rows="4" placeholder="Cuéntanos sobre ti..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="edit-image">URL de foto de perfil</label>
+                    <input type="url" id="edit-image" name="profile_image_url" placeholder="https://ejemplo.com/foto.jpg">
+                    <small style="color: #999; margin-top: 8px; display: block;">Pega la URL de una imagen en línea</small>
+                </div>
+                
+                <div style="margin-top: 24px;">
+                    <button type="submit" class="button button--primary">Guardar cambios</button>
+                </div>
+            </form>
+        </section>
 
-            <fieldset>
-                <legend>Privacidad</legend>
-                <label><input type="checkbox" checked> Mostrar mi perfil a seguidores</label>
-                <label><input type="checkbox"> Permitir mensajes directos</label>
-            </fieldset>
+        <section class="card form-section">
+            <h2>Preferencias</h2>
+            <form class="form-layout">
+                <div class="form-group">
+                    <label>Notificaciones</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="notif-daily" checked>
+                            <label for="notif-daily">Resumen diario de titulares</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="notif-breaking">
+                            <label for="notif-breaking">Alertas de última hora</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="notif-newsletter" checked>
+                            <label for="notif-newsletter">Recordatorios de newsletter</label>
+                        </div>
+                    </div>
+                </div>
 
-            <fieldset>
-                <legend>Temas de interés</legend>
-                <label><input type="checkbox" checked> Medio ambiente</label>
-                <label><input type="checkbox"> Economía</label>
-                <label><input type="checkbox" checked> Cultura</label>
-            </fieldset>
+                <div class="form-group">
+                    <label>Privacidad</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="privacy-profile" checked>
+                            <label for="privacy-profile">Mostrar mi perfil a seguidores</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="privacy-messages">
+                            <label for="privacy-messages">Permitir mensajes directos</label>
+                        </div>
+                    </div>
+                </div>
 
-            <button type="submit" class="button button--primary">Guardar cambios</button>
-        </form>
+                <div style="margin-top: 24px;">
+                    <button type="submit" class="button button--primary">Guardar preferencias</button>
+                </div>
+            </form>
+        </section>
     </main>
 
         <footer class="site-footer">
@@ -118,5 +162,6 @@
     </footer>
 
     <script src="js/main.js"></script>
+    <script src="js/ajustes.js"></script>
 </body>
 </html>

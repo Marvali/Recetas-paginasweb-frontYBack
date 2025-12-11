@@ -1,7 +1,6 @@
-// Conecta el frontend con tu servidor FastAPI local
+// login.js - Conecta con el backend de LaCebolla
 const API_BASE_URL = 'http://127.0.0.1:8000/api/v1';
 
-// Obtener referencias a los elementos del formulario
 const getLoginElements = () => {
   const form = document.getElementById('login-form');
   if (!form) return null;
@@ -16,7 +15,6 @@ const getLoginElements = () => {
   return { form, emailInput, passwordInput, submitButton, messageElement };
 };
 
-// Mostrar mensajes de estado
 const showLoginMessage = (element, message, type = 'error') => {
   if (!element) return;
   element.textContent = message;
@@ -30,7 +28,6 @@ const showLoginMessage = (element, message, type = 'error') => {
   element.classList.add(type === 'success' ? 'form-status-success' : 'form-status-error');
 };
 
-// Función principal de login (simulada con X-User-Email)
 const handleLoginSubmit = ({ form, emailInput, passwordInput, submitButton, messageElement }) => {
   const defaultButtonText = submitButton.textContent;
 
@@ -51,22 +48,22 @@ const handleLoginSubmit = ({ form, emailInput, passwordInput, submitButton, mess
     messageElement.hidden = true;
 
     try {
-      // Verificar si el usuario existe mediante el endpoint /users/me
-      const response = await fetch(`${API_BASE_URL}/users/me`, {
-        headers: {
-          'X-User-Email': email
-        }
+      const response = await fetch(`${API_BASE_URL}/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
       });
 
       if (!response.ok) {
-        throw new Error('Usuario no encontrado o credenciales inválidas.');
+        const error = await response.json();
+        throw new Error(error.detail || 'Credenciales inválidas');
       }
 
-      const user = await response.json();
+      const userData = await response.json();
 
-      // Guardar el email del usuario localmente (simula sesión)
-      localStorage.setItem('userEmail', email);
-      localStorage.setItem('userData', JSON.stringify(user));
+      // Guardar datos de sesión en localStorage
+      localStorage.setItem('userEmail', userData.email);
+      localStorage.setItem('userData', JSON.stringify(userData));
 
       showLoginMessage(messageElement, 'Inicio de sesión exitoso. Redirigiendo…', 'success');
 
